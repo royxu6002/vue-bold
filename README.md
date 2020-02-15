@@ -22,3 +22,10 @@ npm run lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+
+api
+methods: "get",
+url: baseUrl + "/packages/id" + id,
+
+

@@ -5,6 +5,8 @@
       <router-link to="/">Todo</router-link>
       <router-link to="/faq">Favorite asked questions</router-link>
       <router-link to="/customer">Customers</router-link>
+      <router-link to="/invoice">Invoice</router-link>
+      <router-link to="{name: 'QuotationCreate'}">Quotation</router-link>
     </div>
     <router-view />
   </div>

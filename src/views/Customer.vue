@@ -2,8 +2,11 @@
   <div class="customers mt-3">
     <div class="customers_header">
       <span>this is a page for customer list</span>
-      <span class="btn btn-success">Add a customer</span>
+      <router-link :to="{name: 'CustomerCreate'}">
+        <span class="btn btn-default customer_add"><i class="iconfont icon-add-account mr-2"></i>Add</span>
+      </router-link>
     </div>
+    <div></div>
     <div class="customers_body">
       <table class="table table-hover">
         <thead>
@@ -35,7 +38,7 @@
 <script>
 import axios from 'axios'
 export default {
-  name: 'customers',
+  name: 'Customer',
   data() {
     return {
       customers: ''
@@ -43,8 +46,7 @@ export default {
   },
   methods: {
     fetchCustomersData() {
-      const baseUrl = 'http://iot.test/api/v1';
-      axios.get(baseUrl + "/customer").then(res => {
+      axios.get(this.GLOBAL.baseUrl + "/customer").then(res => {
         this.customers = res.data;
       })
       // .then(err => {
@@ -72,5 +74,8 @@ export default {
 .customers_body {
   display: flex;
   justify-content: flex-start;
+}
+.customer_add{
+  color: #fff;
 }
 </style>
