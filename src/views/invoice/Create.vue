@@ -1,8 +1,7 @@
 <template>
   <div class="invoice-create container">
     <div style="text-align: center">
-      <h6>Invoice-create</h6>
-      <p>Source: https://app.invoicequick.com/invoice/create</p>
+      Creeat Invoice
     </div>
     <div class="row invoice-create-header mt-3 mb-3">
       <div>
@@ -180,7 +179,7 @@
       <div>
         <small>Shipping Mark</small>
         <textarea
-          rows="2"
+          rows="1"
           v-model="orderProduct.shipping_mark"
           placeholder="Shipping mark"
           class="form-control"
@@ -207,13 +206,6 @@
     <div class="new-item-button mt-3">
       <a class="btn" @click="addNewItem()">+</a>
     </div>
-
-    <div>
-      {{ invoiceData }}
-    </div>
-    {{ packagesData }}
-    <div>pd: {{pd}}</div>
-    <div> filteredPackagesData: {{filteredPackagesData}}  </div>
 
     <div class="invoice-total-wrapper float-right">
       <div class="wrap">
@@ -438,6 +430,8 @@ export default {
     margin-left: 10px;
     size: 0.5em;
   }
+  display: flex;
+  justify-content: space-between;
 }
 .input-dropdown {
   width: 40%;

@@ -26,6 +26,11 @@ const routes = [
     component: () => import("../views/Customer.vue")
   },
   {
+    path: "/client",
+    name: "Client",
+    component: () => import("../views/customer/Client.vue")
+  },
+  {
     path: "/customer/:id",
     name: "CustomerShow",
     component: () => import("../views/customer/Show.vue")
@@ -56,14 +61,36 @@ const routes = [
     component: () => import("../views/invoice/Show.vue")
   },
   {
-    path: "/quotation/create",
-    name: "QuotationCreate",
+    path: "/transaction",
+    name: "Transaction",
+    component: () => import("../views/transaction/Transaction.vue")
+  },
+  {
+    path: "/transaction/create",
+    name: "TransactionCreate",
+    component: () => import("../views/transaction/Create.vue")
+  },
+  {
+    path: "/transaction/:id/edit",
+    name: "TransactionEdit",
+    component: () => import("../views/transaction/Edit.vue")
+  },
+  {
+    path: "/quotation",
+    name: "Quotation",
     component: () => import("../views/quotation/Quotation.vue")
   },
   {
     path: "/test",
     name: "Test",
-    component: () => import("../views/Test.vue")
+    component: () => import("../views/Test.vue"),
+    children: [
+      {
+        path: "sidebar",
+        name: "Sidebar",
+        component: () => import("../views/test/Sidebar.vue")
+      }
+    ]
   }
 ];
 

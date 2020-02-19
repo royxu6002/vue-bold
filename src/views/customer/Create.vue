@@ -8,18 +8,16 @@
           <input type="text" readonly name="id" class="form-control" />
         </div>
         <div class="col-md-3">
-          <label for="date">Date</label>
-          <input
-            type="date"
-            name="date"
-            class="form-control"
-            v-model="customer.date"
-          />
+          <label for="date">Is client</label>
+          <div>
+            <input name="is_client" type="checkbox" v-model="customer.is_client">
+          </div>
         </div>
         <div class="col-md-3">
           <label for="sale">Sale</label>
           <input name="sale" class="form-control" v-model="customer.sale" />
         </div>
+
         <div class="col-md-3">
           <label for="rank">Rank</label>
           <input name="rank" class="form-control" v-model="customer.rank" />
@@ -145,18 +143,41 @@
           v-model="customer.memo"
         ></textarea>
       </div>
-      <button class="btn btn-success" type="submit">Add</button>
+      <button class="btn btn-success" type="submit">Create</button>
     </form>
+
   </div>
 </template>
 <script>
 import axios from "axios";
 import qs from "qs";
+
 export default {
   name: "CustomerCreate",
   data() {
     return {
-      customer: {}
+      customer: {
+        id: '',
+        sale: '',
+        rank: '',
+        is_client: '',
+        lead: '',
+        company: '',
+        address: '',
+        tel: '',
+        fax: '',
+        website: '',
+        person: '',
+        position: '',
+        email: '',
+        mobile: '',
+        whatsapp: '',
+        country: '',
+        memo: '',
+        qq: '',
+        wechat: '',
+        skype: ''
+      }
     };
   },
   methods: {
@@ -165,12 +186,13 @@ export default {
       axios
         .post(this.GLOBAL.baseUrl + "/customer", qs.stringify(this.customer))
         .then(res => {
-          if (res.status == 200) {
+          if(res.status == 200) {
+            alert(res.data.msg);
             this.$router.push({ name: "Customer" });
           }
         })
         .catch(err => {
-          alert(err + "failed in adding the customer profiles");
+          alert(err);
         });
     }
   }

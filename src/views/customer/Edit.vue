@@ -1,22 +1,17 @@
 <template>
   <div class="container customer_create mt-3">
-    {{customer}}
     <form @submit.prevent="updateCustomerData">
       <!-- <input type="hidden" name="_token"> -->
       <div class="form-group row">
         <div class="col-md-3">
           <label for="id">Id</label>
-          <input type="text" readonly name="id" class="form-control" v-model="customer.id" />
-          <input type="checkbox" v-model="customer.is_client">
+          <input type="number" readonly class="form-control" v-model="customer.id"/>
         </div>
         <div class="col-md-3">
-          <label for="date">Date</label>
-          <input
-            type="date"
-            name="date"
-            class="form-control"
-            v-model="customer.date"
-          />
+          <label for="date">Is client</label>
+          <div>
+              <input type="checkbox" v-model="customer.is_client">
+          </div>
         </div>
         <div class="col-md-3">
           <label for="sale">Sale</label>
@@ -32,7 +27,6 @@
         <label for="lead">Lead</label>
         <textarea
           class="form-control"
-          name="lead"
           rows="3"
           v-model="customer.lead"
         ></textarea>
@@ -42,8 +36,6 @@
         <div class="col-md-6">
           <label for="company">Company</label>
           <input
-            value=""
-            name="company"
             class="form-control"
             v-model="customer.company"
           />
@@ -147,8 +139,10 @@
           v-model="customer.memo"
         ></textarea>
       </div>
-      <button class="btn btn-success" type="submit">Add</button>
+      <button class="btn btn-success" type="submit">Update</button>
+      <router-link class="btn btn-danger ml-3" to="/customer">Cancel</router-link>
     </form>
+
   </div>
 </template>
 <script>
@@ -165,10 +159,17 @@ export default {
   methods: {
     updateCustomerData() {
       if (!this.customer.email) return alert("please fill in customer profile");
+      
       axios
-        .patch(this.GLOBAL.baseUrl + "/customer/" + this.$route.params.id, qs.stringify(this.customer))
+        .put(
+          this.GLOBAL.baseUrl + "/customer/" + this.$route.params.id,
+          qs.stringify(this.customer)
+        )
         .then(res => {
+          window.console.log(res.data);
+
           if (res.status == 200) {
+            alert(res.data.msg);
             this.$router.push({
               name: 'CustomerShow',
               params: {
@@ -177,26 +178,26 @@ export default {
             })
           }
         })
-        .catch(err => {
-          alert(err + "failed in adding the customer profiles");
-        });
+        .catch(err => alert(err))
     },
     getCustomerData() {
       axios
         .get(this.GLOBAL.baseUrl + "/customer/" + this.$route.params.id)
         .then(res => {
           if(res.status == 200) {
-            this.customer = res.data[0];
+            this.customer = res.data;
           }
         })
         .catch(err => {
-          window.console.log(err);
           alert(err);
         })
     }
   },
   created() {
     this.getCustomerData();
+  },
+  computed: {
+
   }
 };
 </script>

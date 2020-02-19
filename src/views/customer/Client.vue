@@ -52,7 +52,9 @@ export default {
   },
   methods: {
     getCustomersData() {
-      axios.get(this.GLOBAL.baseUrl + "/customer").then(res => {
+      // 整个页面采用的逻辑, 结构均是 Customer.vue, 只修改数据源
+      axios.get(this.GLOBAL.baseUrl + "/client")
+      .then(res => {
         this.customersData = res.data;
       });
       // .then(err => alert(err))
