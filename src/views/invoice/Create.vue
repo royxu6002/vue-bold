@@ -421,7 +421,7 @@ export default {
   }
 };
 </script>
-<style lang="scss">
+<style scoped>
 .invoice-create-header {
   select {
     width: 100%;
@@ -444,7 +444,6 @@ export default {
     width: 100%;
   }
   input[readonly]{
-    // background-color: #e9ecef;
     opacity: 0.5;
   }
   border: 1px solid #eee;
