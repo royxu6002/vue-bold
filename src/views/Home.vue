@@ -1,5 +1,15 @@
 <template>
   <div class="container mt-3">
+    <div class="nav container">
+      <router-link to="/faq">FAQ</router-link>
+      <router-link to="/customer">Customers</router-link>
+      <router-link to="/client">客户</router-link>
+      <router-link to="/invoice">Invoice</router-link>
+      <router-link to="/transaction">Transaction</router-link>
+      <router-link to="/shipment">Shipment</router-link>
+      <router-link to="/quotation">Quotation</router-link>
+      <router-link to="/test">Test</router-link>
+    </div>
     <div class="card text-white bg-primary">
       <div class="card-header">
         <!-- add to-do-item -->

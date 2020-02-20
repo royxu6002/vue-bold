@@ -76,9 +76,24 @@ const routes = [
     component: () => import("../views/transaction/Edit.vue")
   },
   {
+    path: "/commercialinvoice/:id",
+    name: "CommercialInvoice",
+    component: () => import("../views/invoice/documents/CI.vue")
+  },
+  {
+    path: "/packinglist/:id",
+    name: "PackingList",
+    component: () => import("../views/invoice/documents/PL.vue")
+  },
+  {
     path: "/quotation",
     name: "Quotation",
     component: () => import("../views/quotation/Quotation.vue")
+  },
+  {
+    path: "/shipment",
+    name: "Shipment",
+    component: () => import("../views/shipment/Shipment.vue")
   },
   {
     path: "/test",

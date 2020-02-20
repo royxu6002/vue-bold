@@ -9,6 +9,7 @@
           <th>client</th>
           <th>invoice value</th>
           <th>balance</th>
+          <th>DOC</th>
         </tr>
         <tr v-for="(invoice, index) in invoicesData" :key="index">
           <td>
@@ -22,6 +23,16 @@
           <td>{{ invoice.client.company }}</td>
           <td>US${{ invoice.total }}</td>
           <th>US${{ balance(invoice) }}</th>
+          <th>
+            <router-link
+              :to="{ name: 'CommercialInvoice', params: { id: invoice.id } }"
+              ><i class="iconfont icon-survey mr-3"></i
+            ></router-link>
+            <router-link
+              :to="{ name: 'PackingList', params: { id: invoice.id } }"
+              ><i class="iconfont icon-form"></i
+            ></router-link>
+          </th>
         </tr>
       </table>
     </div>
