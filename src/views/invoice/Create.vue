@@ -76,7 +76,7 @@
         <small>Deadline</small>
         <div>
           <input
-            type="text"
+            type="date"
             class="form-control"
             v-model="invoiceData.deadline"
           />

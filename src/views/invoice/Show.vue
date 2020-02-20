@@ -65,7 +65,7 @@
             <b>{{ product.product_name }}</b>
             {{ product.product_brief_intro }}
           </td>
-          <td>{{ product.order_info.hs_code }}</td>
+          <td>{{ product.hs_code }}</td>
           <td>US${{ product.order_info.product_cost }}</td>
           <td>{{ product.order_info.product_quantity }}</td>
           <td align="right">
