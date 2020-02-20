@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="invoice-title" align="center">
-      <h5 class="mt-3"><b>COMLIBRA ELECTRONIC CO., LTD</b></h5>
+      <h5 class="mt-3">COMLIBRA ELECTRONIC CO., LTD</h5>
       <div>ADD:ROOM 2112, BAOLONG SQUARE, XIAOSHAN, HANGZHOU, ZHEJIANG</div>
       <h5 class="m-3">PACKING LIST</h5>
     </div>

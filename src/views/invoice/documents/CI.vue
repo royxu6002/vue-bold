@@ -4,10 +4,10 @@
       <h5 class="mt-3">COMLIBRA ELECTRONIC CO., LTD</h5>
       <div>ADD:ROOM 2112, BAOLONG SQUARE, XIAOSHAN, HANGZHOU, ZHEJIANG</div>
       <h5 class="m-3">COMMERCIAL INVOICE</h5>
-      <div align="right">
+      <!-- <div align="right">
           <div><small>INVOICE #: {{invoiceData.id}}</small></div>
           <div><small>DATE: {{invoiceData.deadline}}</small></div>
-      </div>
+      </div> -->
     </div>
     <hr />
 
@@ -19,12 +19,18 @@
             <div>{{invoiceData.client.address}}</div>
             <div>{{invoiceData.client.tel}}</div>
         </div>
+        <br>
+        <div class="left" align="left">
+           <div><small>INVOICE #: {{invoiceData.id}}</small></div>
+          <div><small>DATE: {{invoiceData.deadline}}</small></div>
+        
       </div>
-
-      <div class="left">
-        <div><small>FROM: {{invoiceData.from}}</small></div>
+       
+      </div>
+       <div align="right">
+         <div><small>FROM: {{invoiceData.from}}</small></div>
         <div><small>TO: {{ invoiceData.to }}</small></div>
-        <div>
+          <div>
           <small>Delivery term: {{ invoiceData.delivery_term }}</small>
         </div>
         <div>
@@ -36,9 +42,11 @@
           <div><small>Container no. {{invoiceData.container_no}}</small></div>
           <div><small>Seal no. {{invoiceData.seal_no}}</small>
           </div>
-          <div><small>ETD: {{invoiceData.etd}}</small></div>
-          <div><small>ETA: {{invoiceData.eta}}</small></div>
+          
+          
       </div>
+
+      
 
       
     </div>
