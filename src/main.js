@@ -11,6 +11,9 @@ import "@/assets/css/icon-font/iconfont.css";
 Vue.config.productionTip = false;
 Vue.prototype.GLOBAL = global_;
 
+import Nav from "./components/Nav";
+Vue.component("Nav", Nav);
+
 new Vue({
   router,
   store,

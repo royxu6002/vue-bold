@@ -1,7 +1,7 @@
 <template>
   <div class="invoice-create container">
     <div style="text-align: center">
-      Creeat Invoice
+      Create Invoice
     </div>
     <div class="row invoice-create-header mt-3 mb-3">
       <div>
@@ -316,7 +316,10 @@ export default {
         .catch(err => {
           alert(err);
         });
-    },
+    },  
+    /** 
+      * getProductsData, getPackagesData 可以考虑合并为一个接口.
+      */
     getProductsData() {
       axios
         .get(this.GLOBAL.baseUrl + "/products")
@@ -368,7 +371,6 @@ export default {
         return alert("there should be one item need to been added");
       this.invoiceData.order_info.splice(index, 1);
     },
-    addShippingMark() {},
     changeWidth(nameInput) {
       let input = document.getElementById(nameInput);
       const l = input.value.length;
@@ -446,7 +448,7 @@ export default {
   input[readonly]{
     opacity: 0.5;
   }
-  border: 1px solid #eee;
+  border: 1px solid #eeeeee;
   margin: 10px;
   padding: 10px;
   .item {

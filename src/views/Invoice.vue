@@ -1,6 +1,17 @@
 <template>
   <div class="invoice_index container">
-    <router-link :to="{ name: 'InvoiceCreate' }">Create Invoice</router-link>
+    <div class="nav container">
+      <router-link to="/">ToDo</router-link>
+      <router-link to="/faq">FAQ</router-link>
+      <router-link to="/customer">Customers</router-link>
+      <router-link to="/client">客户</router-link>
+      <router-link to="/invoice">Invoice</router-link>
+      <router-link to="/transaction">Transaction</router-link>
+      <router-link to="/shipment">Shipment</router-link>
+      <router-link to="/quotation">Quotation</router-link>
+      <router-link to="/test">Test</router-link>
+    </div>
+    <div><router-link to="/invoice/create">Create Invoice</router-link></div>
     <div class="invoice-table">
       <table class="table table-hover">
         <tr>
@@ -77,4 +88,9 @@ export default {
   }
 };
 </script>
-<style lang="stylus"></style>
+<style>
+.nav-header {
+  display: flex;
+  align-content: space-around;
+}
+</style>

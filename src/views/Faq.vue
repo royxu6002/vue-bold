@@ -1,6 +1,6 @@
 <template>
   <div class="faq container pt-3">
-    
+    <Nav />
     <div class="form-group mt-3">
       <p> 
         <span>I have questions and need to enquiry and please send email directly to

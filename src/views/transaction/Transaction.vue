@@ -1,6 +1,7 @@
 <template>
   <div class="transaction container mt-3">
-    <div class="transaction-header">
+    <Nav />
+    <div class="transaction-header mt-3">
       <router-link to="/transaction/create" class="btn btn-success btn-small float-right mb-3">Create Transaction</router-link>
     </div>
     <div class="transaction">

@@ -1,5 +1,6 @@
 <template>
   <div class="customers mt-3">
+    <Nav />
     <div class="customers_header">
       <span>this is a page for customer list</span>
       <router-link :to="{ name: 'CustomerCreate' }">

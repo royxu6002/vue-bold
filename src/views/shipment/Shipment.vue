@@ -75,6 +75,8 @@
     </div>
 
     <div class="shipment-index col-9">
+      <Nav />
+      <div align="center"><small>每个快递号/海运运输, 在给客户之前需要先自己查询一遍</small></div>
       <table
         valign="top"
         cellspacing="10px 0"
@@ -93,7 +95,7 @@
           <th>Container No.</th>
           <th>Seal No.</th>
           <th>ETD</th>
-          <th class="th-right">ETA</th>
+          <th>ETA</th>
           <th>OP.</th>
         </tr>
         <tr v-for="(shipData, index) in shipmentsData" :key="index">
