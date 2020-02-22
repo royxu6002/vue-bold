@@ -392,7 +392,6 @@ export default {
       axios
         .put(this.GLOBAL.baseUrl + "/invoice/" + this.$route.params.id, qs.stringify(this.invoiceData))
         .then(res => {
-          window.console.log(res.data);
           if (res.status == 200) {
             alert(res.data.msg);
             this.$router.push("/invoice");
