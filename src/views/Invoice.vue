@@ -43,9 +43,14 @@
             <router-link
               :to="{ name: 'PackingList', params: { id: invoice.id } }"
               v-if="type == 'invoice'"
-              ><i class="iconfont icon-form"></i
+              ><i class="iconfont icon-form mr-3"></i
             ></router-link>
-            <span v-else><i class="iconfont icon-libra"></i></span>
+            <span>
+              <router-link :to="{name: 'InvoiceEdit', params: {id: invoice.id}}">
+                <i class="iconfont icon-libra"></i>
+              </router-link>
+            </span>
+
           </th>
         </tr>
       </table>
