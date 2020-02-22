@@ -60,6 +60,12 @@ const routes = [
     name: "InvoiceShow",
     component: () => import("../views/invoice/Show.vue")
   },
+  // 在 invoice 模型中添加 type 字段, 区分 invoice 和 quotation
+  {
+    path: "/quotation/:id",
+    name: "QuotationShow",
+    component: () => import("../views/quotation/Show.vue")
+  },
   {
     path: "/transaction",
     name: "Transaction",
@@ -84,11 +90,6 @@ const routes = [
     path: "/packinglist/:id",
     name: "PackingList",
     component: () => import("../views/invoice/documents/PL.vue")
-  },
-  {
-    path: "/quotation",
-    name: "Quotation",
-    component: () => import("../views/quotation/Quotation.vue")
   },
   {
     path: "/shipment",

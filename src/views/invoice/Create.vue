@@ -1,18 +1,25 @@
 <template>
   <div class="invoice-create container">
     <div style="text-align: center">
-      Create Invoice
+      Create Invoice or Quotation
     </div>
     <div class="row invoice-create-header mt-3 mb-3">
       <div>
-        <small>Invoice #</small>
+        <small>NO. #</small>
         <input
           type="text"
           placeholder="Auto"
           readonly
           disabled="disabled"
           style="width:100px; border: 1px solid #eee; margin-left: 5px;"
+          class="mr-3"
         />
+        <small>Type</small>
+        <select class="ml-2 inline-control" v-model="invoiceData.type">
+          <option value="">Please select</option>
+          <option value="invoice">Invoice</option>
+          <option value="quotation">Quotation</option>
+        </select>
       </div>
       <div>
         <small>Date Issued:</small>
@@ -184,22 +191,42 @@
           placeholder="Shipping mark"
           class="form-control"
         ></textarea>
-      </div>    
+      </div>
       <div>
         <small>Cartons</small>
-        <input type="text" v-model="orderProduct.cartons" readonly class="form-control">
+        <input
+          type="text"
+          v-model="orderProduct.cartons"
+          readonly
+          class="form-control"
+        />
       </div>
       <div>
         <small>CBM</small>
-        <input type="text" v-model="orderProduct.cbm" readonly class="form-control">
+        <input
+          type="text"
+          v-model="orderProduct.cbm"
+          readonly
+          class="form-control"
+        />
       </div>
       <div>
         <small>NW</small>
-        <input type="text" v-model="orderProduct.net_weight" readonly class="form-control">
+        <input
+          type="text"
+          v-model="orderProduct.net_weight"
+          readonly
+          class="form-control"
+        />
       </div>
       <div>
         <small>GW</small>
-        <input type="text" v-model="orderProduct.gross_weight" readonly class="form-control">
+        <input
+          type="text"
+          v-model="orderProduct.gross_weight"
+          readonly
+          class="form-control"
+        />
       </div>
     </div>
 
@@ -301,7 +328,7 @@ export default {
       // 根据选择到产品 ID 拿到的产品一对多模型关联的包装数据
       packagesData: [],
       paymentsData: 0,
-      pd: "",
+      pd: ""
     };
   },
   methods: {
@@ -316,10 +343,10 @@ export default {
         .catch(err => {
           alert(err);
         });
-    },  
-    /** 
-      * getProductsData, getPackagesData 可以考虑合并为一个接口.
-      */
+    },
+    /**
+     * getProductsData, getPackagesData 可以考虑合并为一个接口.
+     */
     getProductsData() {
       axios
         .get(this.GLOBAL.baseUrl + "/products")
@@ -334,6 +361,7 @@ export default {
     },
     // 接口拿到 productPackages 总数据.
     getPackagesData(id) {
+      if(!id) return alert('please select a product');
       axios
         .get(this.GLOBAL.baseUrl + "/packages/" + id)
         .then(res => {
@@ -347,11 +375,17 @@ export default {
     },
     // input 失去焦点, 拿到具体的包装数据
     setPackageData(orderProduct) {
-      let pd =  this.packagesData.filter(p => p.product_package_item_num === orderProduct.product_number_per_carton);
-      orderProduct.cartons = orderProduct.product_quantity / orderProduct.product_number_per_carton;
+      let pd = this.packagesData.filter(
+        p =>
+          p.product_package_item_num === orderProduct.product_number_per_carton
+      );
+      orderProduct.cartons =
+        orderProduct.product_quantity / orderProduct.product_number_per_carton;
       orderProduct.cbm = orderProduct.cartons * pd[0].product_package_cbm;
-      orderProduct.net_weight = orderProduct.cartons * pd[0].product_package_net_weight;
-      orderProduct.gross_weight =  orderProduct.cartons * pd[0].product_package_gross_weight;
+      orderProduct.net_weight =
+        orderProduct.cartons * pd[0].product_package_net_weight;
+      orderProduct.gross_weight =
+        orderProduct.cartons * pd[0].product_package_gross_weight;
     },
     addNewItem() {
       this.invoiceData.order_info.push({
@@ -418,7 +452,7 @@ export default {
       return this.total - this.paymentsData;
     },
     filteredPackagesData() {
-     return this.packagesData.filter(p => p.product_package_item_num === 10);
+      return this.packagesData.filter(p => p.product_package_item_num === 10);
     }
   }
 };
@@ -445,7 +479,7 @@ export default {
   input {
     width: 100%;
   }
-  input[readonly]{
+  input[readonly] {
     opacity: 0.5;
   }
   border: 1px solid #eeeeee;

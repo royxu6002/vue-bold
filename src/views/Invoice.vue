@@ -1,17 +1,11 @@
 <template>
   <div class="invoice_index container">
-    <div class="nav container">
-      <router-link to="/">ToDo</router-link>
-      <router-link to="/faq">FAQ</router-link>
-      <router-link to="/customer">Customers</router-link>
-      <router-link to="/client">客户</router-link>
-      <router-link to="/invoice">Invoice</router-link>
-      <router-link to="/transaction">Transaction</router-link>
-      <router-link to="/shipment">Shipment</router-link>
-      <router-link to="/quotation">Quotation</router-link>
-      <router-link to="/test">Test</router-link>
+    <Nav />
+    <div class="row invoice-quotation-header">
+      <div><router-link to="/invoice/create">Create Invoice</router-link></div>
+      <div :class="{active: type == 'invoice'}"><span @click="toggleType('invoice')">Invoice</span></div>
+      <div :class="{active: type == 'quotation'}"><span @click="toggleType('quotation')">Quotation</span></div>
     </div>
-    <div><router-link to="/invoice/create">Create Invoice</router-link></div>
     <div class="invoice-table">
       <table class="table table-hover">
         <tr>
@@ -20,12 +14,19 @@
           <th>client</th>
           <th>invoice value</th>
           <th>balance</th>
-          <th>DOC</th>
+          <th>OPER.</th>
         </tr>
-        <tr v-for="(invoice, index) in invoicesData" :key="index">
+        <!-- 使用计算属性, 传递参数拿到过滤的数据 -->
+        <tr v-for="(invoice, index) in filteredInvoicesData(type)" :key="index">
           <td>
-            <router-link
+            <!-- 创建一个 Quotation 页面 -->
+            <router-link v-if="type == 'invoice'"
               :to="{ name: 'InvoiceShow', params: { id: invoice.id } }"
+            >
+              {{ invoice.id }}
+            </router-link>
+            <router-link v-else
+              :to="{ name: 'QuotationShow', params: { id: invoice.id } }"
             >
               {{ invoice.id }}
             </router-link>
@@ -37,12 +38,14 @@
           <th>
             <router-link
               :to="{ name: 'CommercialInvoice', params: { id: invoice.id } }"
-              ><i class="iconfont icon-survey mr-3"></i
+              v-if="type == 'invoice'"><i class="iconfont icon-survey mr-3"></i
             ></router-link>
             <router-link
               :to="{ name: 'PackingList', params: { id: invoice.id } }"
+              v-if="type == 'invoice'"
               ><i class="iconfont icon-form"></i
             ></router-link>
+            <span v-else><i class="iconfont icon-libra"></i></span>
           </th>
         </tr>
       </table>
@@ -55,7 +58,9 @@ import axios from "axios";
 export default {
   data() {
     return {
-      invoicesData: ""
+      invoicesData: "",
+      // 默认是 invoice 数据
+      type: "invoice"
     };
   },
   methods: {
@@ -70,6 +75,9 @@ export default {
         .catch(err => {
           alert(err);
         });
+    },
+    toggleType(type) {
+      this.type = type;
     }
   },
   created() {
@@ -77,13 +85,18 @@ export default {
   },
   computed: {
     balance() {
-      return invoice => {
+      return (invoice) => {
         let b = 0;
         invoice.payments.forEach(payment => {
           b += Number(payment.payment_amount);
         });
         return invoice.total - b;
       };
+    },
+    filteredInvoicesData() {
+      return (type) => {
+        return this.invoicesData.filter(invoice => invoice.type == type );
+      }
     }
   }
 };
@@ -92,5 +105,8 @@ export default {
 .nav-header {
   display: flex;
   align-content: space-around;
+}
+.invoice-quotation-header .active{
+  font-size: 20px;
 }
 </style>

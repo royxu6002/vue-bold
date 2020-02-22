@@ -35,10 +35,8 @@
     </div>
     <div class="row invoice-table">
       <div class="mt-3">
-        <small
-          >The aforementioned parties hereby agree and conclude a deal as
-          below:</small
-        >
+        <small>The aforementioned parties hereby agree and conclude a deal as
+          below:</small>
       </div>
       <table
         valign="top"
