@@ -15,40 +15,43 @@
       <div class="right">
         <small>BILL TO </small>
         <div>
-            <div>{{invoiceData.client.company}}</div>
-            <div>{{invoiceData.client.address}}</div>
-            <div>{{invoiceData.client.tel}}</div>
+          <div>{{ invoiceData.client.company }}</div>
+          <div>{{ invoiceData.client.address }}</div>
+          <div>{{ invoiceData.client.tel }}</div>
         </div>
-        <br>
+        <br />
         <div class="left" align="left">
-           <div><small>INVOICE #: {{invoiceData.id}}</small></div>
-          <div><small>DATE: {{invoiceData.deadline}}</small></div>
-        
-      </div>
-       
-      </div>
-       <div align="right">
-         <div><small>FROM: {{invoiceData.from}}</small></div>
-        <div><small>TO: {{ invoiceData.to }}</small></div>
           <div>
-          <small>Delivery term: {{ invoiceData.delivery_term }}</small>
+            <small>INVOICE #: {{ invoiceData.id }}</small>
+          </div>
+          <div>
+            <small>DATE: {{ invoiceData.deadline }}</small>
+          </div>
+        </div>
+      </div>
+      <div align="left">
+        <div>
+          <small>FROM: {{ invoiceData.from }}</small>
         </div>
         <div>
-          <small>Tracking no. {{invoiceData.tracking_no}}</small>
+          <small>TO: {{ invoiceData.to }}</small>
         </div>
-        <div><small>
-          Vessel {{invoiceData.vessel}}
-          </small></div>
-          <div><small>Container no. {{invoiceData.container_no}}</small></div>
-          <div><small>Seal no. {{invoiceData.seal_no}}</small>
-          </div>
-          
-          
+        <div>
+          <small>Delivery term: {{ invoiceData.shipment.delivery_term }}</small>
+        </div>
+        <div>
+          <small>Tracking no. {{ invoiceData.shipment.tracking_no }}</small>
+        </div>
+        <div>
+          <small> Vessel {{ invoiceData.shipment.vessel }} </small>
+        </div>
+        <div>
+          <small>Container no. {{ invoiceData.shipment.container_no }}</small>
+        </div>
+        <div>
+          <small>Seal no. {{ invoiceData.shipmen.seal_no }}</small>
+        </div>
       </div>
-
-      
-
-      
     </div>
 
     <div class="row invoice-table">
@@ -75,7 +78,7 @@
         >
           <td>
             {{ product.order_info.shipping_mark }}
-            <br>
+            <br />
             {{ product.product_name }}
           </td>
           <td>{{ product.hs_code }}</td>
@@ -92,7 +95,7 @@
         <tr style="font-weight: 500">
           <td colspan="2" rowspan="6"></td>
           <td colspan="2" align="left">Subtotal</td>
-          <td align="right">US${{subtotal}}</td>
+          <td align="right">US${{ subtotal }}</td>
         </tr>
         <tr
           style="font-weight: 500;border-bottom: 1px solid #ccc;border-top:1px solid #ccc"
@@ -116,9 +119,8 @@
           <td colspan="2" align="left">
             Invoice Total
           </td>
-          <td align="right">US${{invoiceData.total}}</td>
+          <td align="right">US${{ invoiceData.total }}</td>
         </tr>
-
       </table>
     </div>
     <div class="invoice-stamp">
@@ -166,7 +168,8 @@ export default {
     subtotal() {
       let price = 0;
       this.invoiceData.products.forEach(product => {
-        price += product.order_info.product_cost * product.order_info.product_quantity;
+        price +=
+          product.order_info.product_cost * product.order_info.product_quantity;
       });
       return price;
     },

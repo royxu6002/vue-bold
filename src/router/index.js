@@ -97,9 +97,19 @@ const routes = [
     component: () => import("../views/invoice/documents/PL.vue")
   },
   {
+    path: "/purchase/:id",
+    name: "PurchaseOrder",
+    component: () => import("../views/purchase/Purchase.vue")
+  },
+  {
     path: "/shipment",
     name: "Shipment",
     component: () => import("../views/shipment/Shipment.vue")
+  },
+  {
+    path: "/price",
+    name: "Price",
+    component: () => import("../views/price/Price.vue")
   },
   {
     path: "/test",

@@ -20,8 +20,8 @@
       </div>
 
       <div class="left">
-            <div><small>INVOICE #: {{invoiceData.id}}</small></div>
-          <div><small>DATE: {{invoiceData.deadline}}</small></div>
+        <div><small>INVOICE #: {{invoiceData.id}}</small></div>
+        <div><small>DATE: {{invoiceData.deadline}}</small></div>
       </div>
       
     </div>

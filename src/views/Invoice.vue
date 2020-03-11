@@ -11,6 +11,7 @@
         <tr>
           <th>id</th>
           <th>Issued</th>
+          <th>Due</th>
           <th>client</th>
           <th>invoice value</th>
           <th>balance</th>
@@ -32,6 +33,7 @@
             </router-link>
           </td>
           <td>{{ invoice.issued_date }}</td>
+          <td>{{ invoice.due_date }}</td>
           <td>{{ invoice.client.company }}</td>
           <td>US${{ invoice.total }}</td>
           <th>US${{ balance(invoice) }}</th>

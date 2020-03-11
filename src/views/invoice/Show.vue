@@ -306,7 +306,7 @@ export default {
       return payment;
     },
     balance() {
-      return Number(this.invoiceData.total - this.payments);
+      return Number(this.invoiceData.total) - Number(this.payments);
     },
     cartons() {
       let total = 0;

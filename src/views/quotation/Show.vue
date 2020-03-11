@@ -43,7 +43,7 @@
             ART.NO.
           </th>
           <th>IMAGE</th>
-          <th>
+          <th style="width: 40%">
             DESCRIPTION
           </th>
           <th>COST</th>
@@ -242,7 +242,8 @@ td {
   justify-content: space-between;
 }
 .invoice-table td img {
-  width: 120px;
+  max-width: 120px;
+  max-height: 120px;
 }
 .invoice-value {
   font-size: 20px;
