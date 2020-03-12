@@ -4,13 +4,8 @@
       <h5 class="mt-3">COMLIBRA ELECTRONIC CO., LTD</h5>
       <div>ADD:ROOM 2112, BAOLONG SQUARE, XIAOSHAN, HANGZHOU, ZHEJIANG</div>
       <h5 class="m-3">COMMERCIAL INVOICE</h5>
-      <!-- <div align="right">
-          <div><small>INVOICE #: {{invoiceData.id}}</small></div>
-          <div><small>DATE: {{invoiceData.deadline}}</small></div>
-      </div> -->
     </div>
     <hr />
-
     <div class="row invoice-brief">
       <div class="right">
         <small>BILL TO </small>
@@ -36,20 +31,22 @@
         <div>
           <small>TO: {{ invoiceData.to }}</small>
         </div>
-        <div>
-          <small>Delivery term: {{ invoiceData.shipment.delivery_term }}</small>
+        <div v-if="invoiceData.shipment">
+          <small>Delivery term: 
+            {{ invoiceData.shipment.delivery_term }}
+          </small>
         </div>
-        <div>
+        <div v-if="invoiceData.shipment">
           <small>Tracking no. {{ invoiceData.shipment.tracking_no }}</small>
         </div>
-        <div>
+        <div v-if="invoiceData.shipment">
           <small> Vessel {{ invoiceData.shipment.vessel }} </small>
         </div>
-        <div>
+        <div v-if="invoiceData.shipment">
           <small>Container no. {{ invoiceData.shipment.container_no }}</small>
         </div>
-        <div>
-          <small>Seal no. {{ invoiceData.shipmen.seal_no }}</small>
+        <div v-if="invoiceData.shipment">
+          <small>Seal no. {{ invoiceData.shipment.seal_no }}</small>
         </div>
       </div>
     </div>
@@ -128,7 +125,7 @@
         <tr align="center">
           <td
             colspan="2"
-            style="background-image:url('../../../assets/imgs/stamp.png');background-size:contain;background-repeat:no-repeat;background-position:center;"
+            style="background:url('stamp.png');background-size:contain;background-repeat:no-repeat;background-position:center;"
           >
             THE SELLER:<br />
             ROY XU<br /><br />
@@ -205,6 +202,9 @@ td {
 }
 .th-right {
   text-align: right !important;
+}
+.invoice-table tr td{
+  padding-right: 10px;
 }
 .invoice-header {
   display: flex;

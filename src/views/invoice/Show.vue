@@ -46,7 +46,7 @@
         style="border-collapse:collapse"
       >
         <tr style="border-bottom: 1px solid #171218">
-          <th>
+          <th style="width: 40%">
             ART.NO. & DESCRIPTION
           </th>
           <th>HS CODE</th>

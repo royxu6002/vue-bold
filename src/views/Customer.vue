@@ -79,21 +79,10 @@ export default {
   computed: {
     // 计算属性的超强过滤功能
     filteredBy() {
-      // 传参
       const { customersData, keywords } = this;
       let search = keywords.toLowerCase();
-
       return customersData.filter(customer => {
-        if (!customer.email) return;
-        if (!customer.company) return;
-        if (!customer.person) return;
-        if (!customer.country) return;
-        return (
-          customer.email.toLowerCase().includes(search) ||
-          customer.company.toLowerCase().includes(search) ||
-          customer.person.toLowerCase().includes(search) ||
-          customer.country.toLowerCase().includes(search)
-        );
+        return JSON.stringify(customer).toLowerCase().includes(search);
       });
     }
   }
