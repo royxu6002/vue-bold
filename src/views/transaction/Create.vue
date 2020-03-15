@@ -40,7 +40,7 @@
           <div class="form-group">
             <label for="">Amount</label>
             <input
-              type="number"
+              type="text"
               name="payment_amount"
               class="form-control"
               placeholder="$0.00"

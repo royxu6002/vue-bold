@@ -11,7 +11,7 @@
         <small>BILL TO </small>
         <div>
           <div>{{ invoiceData.client.company }}</div>
-          <div>{{ invoiceData.client.address }}</div>
+          <div>{{ invoiceData.client.address }}, {{ invoiceData.client.country }}</div>
           <div>{{ invoiceData.client.tel }}</div>
         </div>
         <br />

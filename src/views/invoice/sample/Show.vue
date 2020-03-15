@@ -115,150 +115,25 @@
       </table>
     </div>
     <div class="invoice-terms">
-      <table align="center" cellpadding="10px">
+      <table cellpadding="10px">
         <tr>
-          <td valign="top" style="font-weight:bold;">TERMS OF PACKING:</td>
-          <td colspan="3" valign="top">
-            <div v-for="(product, index) in invoiceData.products" :key=index>
-              <div>
-                ART. {{product.product_name}} TO BE PACKED IN CARTONS OF 
-                {{product.order_info.product_number_per_carton}}PCS EACH ONLY, SUBTOTAL 
-                {{Number(product.order_info.cartons)}}
-              CARTONS.
-              </div>
-              <div>
-                SHIPPING MARK: {{product.order_info.shipping_mark}}
-              </div>
-            </div>
-            <div>
-              TOTAL {{cartons}} CARTONS, {{cbm}} CUBIC METERS, {{gross}} KILOGRAMMES.
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td valign="top" style="font-weight:bold;">TERMS OF SHIPMENT:</td>
-          <td colspan="3" valign="top">
-            FROM: {{invoiceData.from}}<br />
-            TO: {{invoiceData.to}}<br />
-            TO BE EFFECTED BEFORE {{invoiceData.deadline}} <br />WITH PARTIAL SHIPMENTS AND TRANSSHIPMENT
-            NOT ALLOWED
-          </td>
-        </tr>
-        <tr>
-          <td valign="top" style="font-weight:bold;">DOCUMENTS:</td>
-          <td colspan="3" valign="top">
-            DIGITAL COMMERCIAL INVOICE AND PACKING LIST ORIGINAL BILL OF LADING
-            OR TELEX-RELEASED B/L COPIES
-          </td>
-        </tr>
-        <tr>
-          <td valign="top" style="font-weight:bold;">TERMS OF PAYMENT:</td>
-          <td colspan="3" valign="top">
+          <td valign="top">
             PRICE TERMS: {{invoiceData.price_term}}, CHINA<br />
             PAYMENT TERMS: {{invoiceData.payment_term}}. <br />
-            Please kindly remit the payment to following beneficiary's BANK:<br /><br />
-            <b
-              >BENEFICIARY NAME: COMLIBRA ELECTRONIC CO., LTD..<br />
+            <small> Please kindly remit the payment to following beneficiary's account:</small>
+           <br />
+            <b>Paypal account:</b><br/>
+            export@comlibra.com<br />
+            <br>
+            <b>Bank account:</b> <br />
+            BENEFICIARY NAME: COMLIBRA ELECTRONIC CO., LTD..<br />
               A/C NO. FOR USD: NRA1 5623 1420 1050 0000 153<br />
               <!-- A/C NO. FOR EUR: NRA1 5623 3820 1050 0000 046<br> -->
               BENEFICIARY BANK: ZHEJIANG CHOUZHOU COMMERCIAL <br>
-              BANK ADDRESS:YIWULEYUAN EAST, JIANGBIN RD, YIWU, ZHEJIANG, CHINA 
-              <br>SWIFT BIC: CZCBCN2X<br />
+              BANK ADDRESS:YIWULEYUAN EAST, JIANGBIN RD, YIWU, ZHEJIANG, CHINA<br />
+              SWIFT BIC: CZCBCN2X<br />
               CORRESPONDENT BANK: BANK OF AMERICA N.A.NEW YORK BRANCH <br />
-              SWIFT BIC: BOFAUS3N</b
-            >
-          </td>
-        </tr>
-        <tr>
-          <td valign="top" style="font-weight:bold;">TERMS OF INSURANCE:</td>
-          <td colspan="3" valign="top">
-            FOR TRANSACTIONS CONCLUDED ON C.I.F. BASIS, IT IS UNDERSTOOD THAT
-            THE INSURANCE AMOUND WILL BE FOR 110% OF THE INVOICE VALUE AGAINST
-            THE RISKS SPECIFIED IN THE INVOICE. IF ADDITIONAL INSURANCE OR
-            COVERAGE REQUIRED, THE BUYER MUST HAVE THE CONSENT OF THE SELLER
-            BEFORE SHIPMENT. AND THE ADDITIONAL PREMIUM IS TO BE BORND BY THE
-            BUYER.
-          </td>
-        </tr>
-
-        <tr>
-          <td colspan="4">Hereby confirmed by:</td>
-        </tr>
-        <tr align="center">
-          <td
-            colspan="2"
-            style="font-weight:bold; background-image:url('./upload/stamp.png');background-size:contain;background-repeat:no-repeat;background-position:center;"
-          >
-            THE SELLER:<br />
-            ROY XU<br /><br />
-            COMLIBRA ELECTRONIC CO., LTD.<br />Signature & Stamp
-          </td>
-          <td
-            colspan="2"
-            style="font-weight:bold; background-image:url('');background-size:contain;background-repeat:no-repeat;background-position:center;"
-          >
-            THE BUYER:<br />
-            <br /><br />
-            <br />Signature & Stamp
-          </td>
-        </tr>
-
-        <tr align="center">
-          <td colspan="2"></td>
-          <td colspan="2"></td>
-        </tr>
-
-        <tr>
-          <td width="25%"></td>
-          <td width="25%"></td>
-          <td width="25%"></td>
-          <td width="25%"></td>
-        </tr>
-        <tr>
-          <td width="25%"></td>
-          <td width="25%"></td>
-          <td width="25%"></td>
-          <td width="25%"></td>
-        </tr>
-        <tr>
-          <td colspan="4" style="font-weight:bold;">REMARKS</td>
-        </tr>
-        <tr>
-          <td valign="top" style="font-weight:bold;">&nbsp;&nbsp;Claims:</td>
-          <td colspan="3" valign="top">
-            In case of any discrepancy in quality, claims should be filed by the
-            Buyer within 30 days after the arrival of the goods at port of
-            destination; while for quantity discrepancy, claims should be filed
-            by the buyer within 15 days after the arrival of the goods at port
-            of destination.
-          </td>
-        </tr>
-        <tr>
-          <td valign="top" style="font-weight:bold;">
-            &nbsp;&nbsp;Force Majeure:
-          </td>
-          <td colspan="3" valign="top">
-            The seller shall not hold riable to non-delivery or delay in the
-            delivery of the entire lot or a portion of the goods hereunder by
-            reason of natural disasters, war or other causes of Force Majeure.
-            However, the Seller shall notify the Buyer as soon as possible and
-            furnish the Buyer within 15 days by registered airmail with a
-            certificate issued by the China Council of the Promotion of
-            International Trade attesting such event(s).
-          </td>
-        </tr>
-        <tr>
-          <td valign="top" style="font-weight:bold;">
-            &nbsp;&nbsp;Arbitration:
-          </td>
-          <td colspan="3" valign="top">
-            All deputes arising out of the performance of, or relating to this
-            Invoice, shall be settled through negotiation. In case of no
-            settlement can be reached through negotiation, the case shall then
-            be submitted to the China International Economic and Trade
-            Arbitration Commission for arbitration in accordance with its
-            arbitral rules. The arbitration shall take place in China. The
-            arbitral award is final and binding upon both partes.
+              SWIFT BIC: BOFAUS3N
           </td>
         </tr>
       </table>

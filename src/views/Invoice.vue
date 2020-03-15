@@ -2,9 +2,9 @@
   <div class="invoice_index container">
     <Nav />
     <div class="row invoice-quotation-header">
-      <div><router-link to="/invoice/create">Create Invoice</router-link></div>
-      <div :class="{active: type == 'invoice'}"><span @click="toggleType('invoice')">Invoice</span></div>
-      <div :class="{active: type == 'quotation'}"><span @click="toggleType('quotation')">Quotation</span></div>
+      <div class="mr-2"><router-link to="/invoice/create">Create Invoice</router-link></div>
+      <div :class="{active: type == 'invoice'}" class="mr-2"><span @click="toggleType('invoice')">Invoice</span></div>
+      <div :class="{active: type == 'quotation'}" class="mr-2"><span @click="toggleType('quotation')">Quotation</span></div>
     </div>
     <div class="invoice-table">
       <table class="table table-hover">
@@ -14,7 +14,7 @@
           <th>Due</th>
           <th>client</th>
           <th>invoice value</th>
-          <th>balance</th>
+          <th v-if="type == 'invoice'">balance</th>
           <th>OPER.</th>
         </tr>
         <!-- 使用计算属性, 传递参数拿到过滤的数据 -->
@@ -36,12 +36,16 @@
           <td>{{ invoice.due_date }}</td>
           <td>{{ invoice.client.company }}</td>
           <td>US${{ invoice.total }}</td>
-          <th>US${{ balance(invoice) }}</th>
+          <th v-if="type=='invoice'">US${{ balance(invoice) }}</th>
           <th>
+            <router-link :to="{name: 'SampleInvoiceShow', params: {id: invoice.id}}">
+              <i class="iconfont icon-icon_wangye mr-3"></i>
+            </router-link>
             <router-link
               :to="{ name: 'CommercialInvoice', params: { id: invoice.id } }"
-              v-if="type == 'invoice'"><i class="iconfont icon-survey mr-3"></i
-            ></router-link>
+              v-if="type == 'invoice'">
+              <i class="iconfont icon-survey mr-3"></i>
+            </router-link>
             <router-link
               :to="{ name: 'PackingList', params: { id: invoice.id } }"
               v-if="type == 'invoice'"
@@ -113,7 +117,10 @@ export default {
   display: flex;
   align-content: space-around;
 }
+.invoice-quotation-header {
+  margin: 20px;
+}
 .invoice-quotation-header .active{
-  font-size: 20px;
+  font-weight: bold;
 }
 </style>

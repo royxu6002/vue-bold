@@ -72,6 +72,11 @@ const routes = [
     component: () => import("../views/quotation/Show.vue")
   },
   {
+    path: "/sampleinvoice/:id",
+    name: "SampleInvoiceShow",
+    component: () => import("../views/invoice/sample/Show.vue")
+  },
+  {
     path: "/transaction",
     name: "Transaction",
     component: () => import("../views/transaction/Transaction.vue")
