@@ -28,6 +28,13 @@
             >
               {{ invoice.id }}
             </router-link>
+
+            <router-link v-else
+              :to="{ name: 'QuotationPackingShow', params: { id: invoice.id } }"
+            >
+              ICON
+            </router-link>
+
             <router-link v-if="type == 'invoice'" :to="{name: 'SampleInvoiceShow', params: {id: invoice.id}}">
               <i class="iconfont icon-icon_wangye mr-3"></i>
             </router-link>
@@ -37,6 +44,9 @@
             >
               {{ invoice.id }}
             </router-link>
+
+            
+
           </td>
           <td>{{ invoice.issued_date }}</td>
           <td>{{ invoice.due_date }}</td>
@@ -61,9 +71,6 @@
             ></router-link>
           </td>
           <td>
-            
-            
-
             <!-- 发票编辑 -->
               <router-link :to="{name: 'InvoiceEdit', params: {id: invoice.id}}">
                 <i class="iconfont icon-libra"></i>

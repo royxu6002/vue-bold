@@ -46,6 +46,7 @@
           <th style="width: 40%">
             DESCRIPTION
           </th>
+          <th>Package</th>
           <th>COST</th>
           <th>QTY</th>
           <th class="th-right">PRICE</th>
@@ -60,6 +61,13 @@
             <img :src="product.imgs[0]" alt="" />
           </td>
           <td>{{ product.product_brief_intro }}</td>
+          <!-- 包装信息 -->
+          <td>
+              {{ product.order_info.product_number_per_carton }}PCS/CARTON<br>
+              NO.:  - {{ Number(product.order_info.cartons) }} CARTONS<br>
+              {{ product.order_info.cbm }} CBM<br>
+              {{ product.order_info.gross_weight }} KGS
+          </td>
           <td>US${{ product.order_info.product_cost }}</td>
           <td>{{ product.order_info.product_quantity }}</td>
           <td align="right">
@@ -71,7 +79,7 @@
         </tr>
 
         <tr style="font-weight: 500">
-          <td colspan="3" rowspan="6"></td>
+          <td colspan="4" rowspan="6"></td>
           <td colspan="2" align="left">Subtotal</td>
           <td align="right">US${{ subtotal }}</td>
         </tr>
@@ -104,26 +112,21 @@
     <div class="invoice-terms mt-3">
       <table align="center" cellpadding="10px">
         <tr>
-          <td valign="top" style="font-weight:bold;">TERMS OF PACKING:</td>
+          <td valign="top" style="font-weight:bold;">PACKING:</td>
           <td colspan="3" valign="top">
             <div v-for="(product, index) in invoiceData.products" :key="index">
-              <div>
-                ART. {{ product.product_name }} TO BE PACKED IN CARTONS OF
-                {{ product.order_info.product_number_per_carton }}PCS EACH ONLY,
-                SUBTOTAL
-                {{ Number(product.order_info.cartons) }}
-                CARTONS.
-              </div>
               <div>SHIPPING MARK: {{ product.order_info.shipping_mark }}</div>
             </div>
+
             <div>
               TOTAL {{ cartons }} CARTONS, {{ cbm }} CUBIC METERS,
               {{ gross }} KILOGRAMMES.
             </div>
+
           </td>
         </tr>
         <tr>
-          <td valign="top" style="font-weight:bold;">TERMS OF SHIPMENT:</td>
+          <td valign="top" style="font-weight:bold;">SHIPMENT:</td>
           <td colspan="3" valign="top">
             FROM: {{ invoiceData.from }}<br />
             TO: {{ invoiceData.to }}<br />
@@ -139,7 +142,7 @@
           </td>
         </tr>
         <tr>
-          <td valign="top" style="font-weight:bold;">TERMS OF PAYMENT:</td>
+          <td valign="top" style="font-weight:bold;">PAYMENT:</td>
           <td colspan="3" valign="top">
             PRICE TERMS: {{ invoiceData.price_term }}, CHINA<br />
             PAYMENT TERMS: {{ invoiceData.payment_term }}. <br />
@@ -153,7 +156,7 @@
 import axios from "axios";
 
 export default {
-  name: "QuotationShow",
+  name: "QuotationPackingShow",
   data() {
     return {
       invoiceData: {}

@@ -72,6 +72,11 @@ const routes = [
     component: () => import("../views/quotation/Show.vue")
   },
   {
+    path: "/quotationpacking/:id",
+    name: "QuotationPackingShow",
+    component: () => import("../views/quotation/PackingShow.vue")
+  },
+  {
     path: "/sampleinvoice/:id",
     name: "SampleInvoiceShow",
     component: () => import("../views/invoice/sample/Show.vue")
