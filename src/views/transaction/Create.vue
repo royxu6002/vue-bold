@@ -50,6 +50,21 @@
           </div>
 
           <div class="form-group">
+            <label for="">Currency</label>
+            <select
+              name="currency"
+              class="form-control"
+              required
+              v-model="transactionData.currency"
+            >
+              <option>Select Currency</option>
+              <option value="EUD">EURO Dollars</option>
+              <option value="USD">US Dollars</option>
+              <option value="RMB">CHINA Yuan</option>
+            </select>
+          </div>
+          
+          <div class="form-group">
             <label for="">Payment method</label>
             <select
               name="payment_method"

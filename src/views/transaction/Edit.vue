@@ -40,13 +40,28 @@
           <div class="form-group">
             <label for="">Amount</label>
             <input
-              type="number"
+              type="text"
               name="payment_amount"
               class="form-control"
               placeholder="$0.00"
               required
               v-model="transactionData.payment_amount"
             />
+          </div>
+
+          <div class="form-group">
+            <label for="">Currency</label>
+            <select
+              name="currency"
+              class="form-control"
+              required
+              v-model="transactionData.currency"
+            >
+              <option>Select Currency</option>
+              <option value="EUD">EURO Dollars</option>
+              <option value="USD">US Dollars</option>
+              <option value="RMB">CHINA Yuan</option>
+            </select>
           </div>
 
           <div class="form-group">

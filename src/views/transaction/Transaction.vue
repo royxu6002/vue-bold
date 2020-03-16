@@ -22,7 +22,7 @@
           <thead>
             <tr>
               <th scope="col">Id</th>
-              <th scope="col">Paid</th>
+              <th scope="col">Paid At</th>
               <th scope="col">Invoice #</th>
               <th scope="col">Customer</th>
               <th scope="col">Amount</th>
@@ -49,7 +49,7 @@
                 </router-link>
               </td>
               <td>{{ transaction.customer.company }}</td>
-              <td>US${{ transaction.amount }}</td>
+              <td>{{ transaction.currency }} {{ transaction.amount }}</td>
               <td>{{ transaction.payment_method }}</td>
               <td>{{ transaction.note }}</td>
               <td style="text-align: center">
