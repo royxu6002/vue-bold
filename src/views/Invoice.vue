@@ -13,8 +13,10 @@
           <th>Issued</th>
           <th>Due</th>
           <th>client</th>
-          <th>invoice value</th>
+          <th v-if="type == 'invoice'">invoice value</th>
+          <th v-else>quotation value</th>
           <th v-if="type == 'invoice'">balance</th>
+          <th v-if="type == 'invoice'">shipment</th>
           <th>OPER.</th>
         </tr>
         <!-- 使用计算属性, 传递参数拿到过滤的数据 -->
@@ -26,6 +28,10 @@
             >
               {{ invoice.id }}
             </router-link>
+            <router-link v-if="type == 'invoice'" :to="{name: 'SampleInvoiceShow', params: {id: invoice.id}}">
+              <i class="iconfont icon-icon_wangye mr-3"></i>
+            </router-link>
+
             <router-link v-else
               :to="{ name: 'QuotationShow', params: { id: invoice.id } }"
             >
@@ -36,28 +42,33 @@
           <td>{{ invoice.due_date }}</td>
           <td>{{ invoice.client.company }}</td>
           <td>US${{ invoice.total }}</td>
-          <th v-if="type=='invoice'">US${{ balance(invoice) }}</th>
-          <th>
-            <router-link :to="{name: 'SampleInvoiceShow', params: {id: invoice.id}}">
-              <i class="iconfont icon-icon_wangye mr-3"></i>
-            </router-link>
-            <router-link
-              :to="{ name: 'CommercialInvoice', params: { id: invoice.id } }"
-              v-if="type == 'invoice'">
-              <i class="iconfont icon-survey mr-3"></i>
-            </router-link>
+          <td v-if="type=='invoice'">US${{ balance(invoice) }}</td>
+          <td v-if="type=='invoice'">
+            {{ invoice.shipment[0]? invoice.shipment[0].status.status:'no data' }}
+            <!-- 有 shipmeng 才会产生 commercialInvoice -->
+            <span v-if="invoice.shipment.length > 0">
+              <router-link
+                :to="{ name: 'CommercialInvoice', params: { id: invoice.id } }"
+                v-if="type == 'invoice'">
+                <i class="iconfont icon-survey mr-3"></i>
+              </router-link>
+            </span>
+            <!-- 装箱单, 订舱的时候需要这个 -->
             <router-link
               :to="{ name: 'PackingList', params: { id: invoice.id } }"
               v-if="type == 'invoice'"
               ><i class="iconfont icon-form mr-3"></i
             ></router-link>
-            <span>
+          </td>
+          <td>
+            
+            
+
+            <!-- 发票编辑 -->
               <router-link :to="{name: 'InvoiceEdit', params: {id: invoice.id}}">
                 <i class="iconfont icon-libra"></i>
               </router-link>
-            </span>
-
-          </th>
+          </td>
         </tr>
       </table>
     </div>

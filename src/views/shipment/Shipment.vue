@@ -14,7 +14,7 @@
               Select ID
             </option>
             <option
-              v-for="(invoice, index) in invoicesData"
+              v-for="(invoice, index) in filteredInvoicesData"
               :key="index"
               :value="invoice.id"
               >{{ invoice.id }} - {{ invoice.client.company }} -
@@ -69,6 +69,18 @@
         <div class="form-group col-12">
           <small>ETA</small
           ><input type="date" class="form-control" v-model="shipmentData.eta" />
+        </div>
+        <div class="form-group col-12">
+          <small>Status</small>
+          <select name="status" v-model="shipmentData.status" class="form-control" required placeholder="Please select">
+            <option default>Please select one</option>
+            <option value="shipment not booked">Not booked</option>
+            <option value="booked not departed">Booked not yet departed</option>
+            <option value="em route">En route</option>
+            <option value="custom clearance needed">Clearance needed</option>
+            <option value="dispatch goods">Dispatch goods</option>
+            <option value="received goods">Received</option>
+          </select>
         </div>
         <button type="submit" class="btn btn-primary">Create</button>
       </form>
@@ -175,6 +187,11 @@ export default {
   created() {
     this.getInvoicesData();
     this.getShipmentsData();
+  },
+  computed: {
+    filteredInvoicesData() {
+      return this.invoicesData.filter(invoiceData => invoiceData.type == 'invoice')
+    }
   }
 };
 </script>

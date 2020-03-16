@@ -33,20 +33,20 @@
         </div>
         <div v-if="invoiceData.shipment">
           <small>Delivery term: 
-            {{ invoiceData.shipment.delivery_term }}
+            {{ invoiceData.shipment[0].delivery_term }}
           </small>
         </div>
         <div v-if="invoiceData.shipment">
-          <small>Tracking no. {{ invoiceData.shipment.tracking_no }}</small>
+          <small>Tracking no. {{ invoiceData.shipment[0].tracking_no }}</small>
         </div>
         <div v-if="invoiceData.shipment">
-          <small> Vessel {{ invoiceData.shipment.vessel }} </small>
+          <small> Vessel {{ invoiceData.shipment[0].vessel }} </small>
         </div>
         <div v-if="invoiceData.shipment">
-          <small>Container no. {{ invoiceData.shipment.container_no }}</small>
+          <small>Container no. {{ invoiceData.shipment[0].container_no }}</small>
         </div>
         <div v-if="invoiceData.shipment">
-          <small>Seal no. {{ invoiceData.shipment.seal_no }}</small>
+          <small>Seal no. {{ invoiceData.shipment[0].seal_no }}</small>
         </div>
       </div>
     </div>
