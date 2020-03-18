@@ -50,7 +50,11 @@
           </td>
           <td>{{ invoice.issued_date }}</td>
           <td>{{ invoice.due_date }}</td>
-          <td>{{ invoice.client.company }}</td>
+          <td>
+            <router-link :to="{name: 'CustomerShow', params: {id: invoice.client.id}}">
+              {{ invoice.client.company }}
+            </router-link>
+          </td>
           <td>US${{ invoice.total }}</td>
           <td v-if="type=='invoice'">US${{ balance(invoice) }}</td>
           <td v-if="type=='invoice'">

@@ -61,7 +61,8 @@
         >
           <td>
             <b>{{ product.product_name }}</b>
-            {{ product.product_brief_intro }}
+            <span v-html="product.product_brief_intro">
+            </span>
           </td>
           <td>{{ product.hs_code }}</td>
           <td>US${{ product.order_info.product_cost }}</td>

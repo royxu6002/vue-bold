@@ -59,7 +59,9 @@
           <td>
             <img :src="product.imgs[0]" alt="" />
           </td>
-          <td>{{ product.product_brief_intro }}</td>
+          <td>
+            <span v-html="product.product_brief_intro"></span>
+          </td>
           <td>US${{ product.order_info.product_cost }}</td>
           <td>{{ product.order_info.product_quantity }}</td>
           <td align="right">

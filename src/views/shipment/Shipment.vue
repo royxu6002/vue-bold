@@ -168,7 +168,7 @@ export default {
         )
         .then(res => {
           alert(res.data.msg);
-          this.$router.go(0);
+          this.$router.go(-1);
         })
         .catch(err => alert(err));
     },
@@ -178,7 +178,7 @@ export default {
           .delete(this.GLOBAL.baseUrl + "/shipment/" + id)
           .then(res => {
             alert(res.data.msg);
-            this.$router.go(0);
+            this.$router.push({name: "Invoice"});
           })
           .catch(err => alert(err));
       }

@@ -60,7 +60,9 @@
           <td>
             <img :src="product.imgs[0]" alt="" />
           </td>
-          <td>{{ product.product_brief_intro }}</td>
+          <td>
+            <span v-html="product.product_brief_intro"></span>
+            </td>
           <!-- 包装信息 -->
           <td>
               {{ product.order_info.product_number_per_carton }}PCS/CARTON<br>
