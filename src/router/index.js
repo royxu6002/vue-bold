@@ -6,9 +6,16 @@ Vue.use(VueRouter);
 
 const routes = [
   {
-    path: "/",
-    name: "Home",
+    path: "/home",
     component: Home
+  },
+  {
+    path: "/",
+    redirect: "/login"
+  },
+  {
+    path: "/login",
+    component: () => import("../views/login/Login.vue")
   },
   {
     path: "/faq",
@@ -139,5 +146,16 @@ const router = new VueRouter({
   mode: "history",
   routes
 });
+
+router.beforeEach((to, from, next) => {
+  // 如果是登录 login, 直接放行
+  if (to.path === "/login") return next();
+  // 如果不是登录, 从 sessionStorage 获取 token,
+  let token = window.sessionStorage.getItem('cle_api_token'); 
+  // 拿不到 token, 返回登录
+  if (!token) return next("/login");
+  // 拿到 token, 直接放行
+  next();
+})
 
 export default router;

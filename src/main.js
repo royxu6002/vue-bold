@@ -5,12 +5,32 @@ import "./plugins/bootstrap-vue";
 import App from "./App.vue";
 import router from "./router";
 import store from "./store";
-import global_ from "./api/global_variables";
+
+// 引入全局 api
+import _global from "./api/global_variables";
+Vue.prototype.GLOBAL = _global;
+
+// 引入 icon 图标
 import "@/assets/css/icon-font/iconfont.css";
 
-Vue.config.productionTip = false;
-Vue.prototype.GLOBAL = global_;
+import axios from "./util/http";
+Vue.prototype.axios = axios;
 
+import qs from "qs";
+Vue.prototype.qs = qs;
+
+// 按需引入 Element-UI组件
+// import 'element-ui/lib/theme-chalk/index.css';
+import { Button, Form, FormItem, Input } from 'element-ui';
+Vue.use(Button);
+Vue.use(Form);
+Vue.use(FormItem);
+Vue.use(Input);
+
+
+Vue.config.productionTip = false;
+
+// 全局组件 Nav
 import Nav from "./components/Nav";
 Vue.component("Nav", Nav);
 

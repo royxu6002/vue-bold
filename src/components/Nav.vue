@@ -1,6 +1,6 @@
 <template>
     <div class="nav container">
-      <router-link to="/">ToDo</router-link>
+      <router-link to="/home">ToDo</router-link>
       <router-link to="/faq">FAQ</router-link>
       <router-link to="/customer">Customer Leads</router-link>
       <router-link to="/client">Client</router-link>
