@@ -1,17 +1,19 @@
 <template>
   <div class="login-page container">
-    <h5>Login</h5>
-    <el-form ref="loginForm" :model="loginForm" label-width="80px">
-      <el-form-item label="邮箱">
-        <el-input v-model="loginForm.email"></el-input>
-      </el-form-item>
-      <el-form-item label="密码">
-        <el-input v-model="loginForm.password"></el-input>
+    <div class="login-box">
+      <img src="../../assets/imgs/logo.svg" alt="">
+      <el-form ref="loginForm" :model="loginForm">
+      <el-form-item>
+        <el-input v-model="loginForm.email" prefix-icon="iconfont icon-account"></el-input>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" @click="login">立即登录</el-button>
+        <el-input v-model="loginForm.password" prefix-icon="iconfont icon-tiaoshi"></el-input>
+      </el-form-item>
+      <el-form-item>
+        <el-button type="primary" @click="login">登录</el-button>
       </el-form-item>
     </el-form>
+    </div>
   </div>
 </template>
 <script>
@@ -44,4 +46,20 @@ export default {
   }
 };
 </script>
-<style></style>
+<style>
+.login-page .login-box {
+  position: absolute;
+  width: 30%;
+  height: 50%;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+.login-page .login-box img {
+  position: relative;
+  width: 138px;
+  left: 50%;
+  transform: translate(-50%);
+  padding: 30px 0;
+}
+</style>
