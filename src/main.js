@@ -21,11 +21,14 @@ Vue.prototype.qs = qs;
 
 // 按需引入 Element-UI组件
 // import 'element-ui/lib/theme-chalk/index.css';
-import { Button, Form, FormItem, Input } from 'element-ui';
+import { Button, Form, FormItem, Input, Upload, Row, Container } from 'element-ui';
 Vue.use(Button);
 Vue.use(Form);
 Vue.use(FormItem);
 Vue.use(Input);
+Vue.use(Upload);
+Vue.use(Row);
+Vue.use(Container);
 
 
 Vue.config.productionTip = false;

@@ -8,6 +8,7 @@
       <router-link to="/transaction">Transaction</router-link>
       <router-link to="/shipment">Shipment</router-link>
       <router-link to="/price">Price</router-link>
+      <router-link to="/stock">Stock</router-link>
       <router-link to="/test">Test</router-link>
     </div>
 </template>
