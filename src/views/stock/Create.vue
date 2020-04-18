@@ -10,7 +10,7 @@
 
                 <el-upload
                     class="upload-component"
-                    :action="baseUrl"
+                    action="http://comlibra.com/api/v1/upload"
                     :on-preview="handlePreview"
                     :on-remove="handleRemove"
                     :file-list="form.fileList"
