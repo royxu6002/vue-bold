@@ -130,8 +130,23 @@ const routes = [
   },
   {
     path: "/stock",
+    name: "StockIndex",
+    component: () => import("../views/stock/Index.vue")
+  },
+  {
+    path: "/stock/create",
     name: "StockCreate",
     component: () => import("../views/stock/Create.vue")
+  },
+  {
+    path: "/stock/:id",
+    name: "StockShow",
+    component: () => import('../views/stock/Show.vue')
+  },
+  {
+    path: "/stock/:id/edit",
+    name: "StockEdit",
+    component: () => import("../views/stock/Edit.vue")
   },
   {
     path: "/test",
