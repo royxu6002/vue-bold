@@ -21,12 +21,12 @@
       </div>
       <div class="invoice-header-right">
         <small>FROM</small>
-        <h6 class="mt-2">Comlibra Electronic CO., Ltd</h6>
+        <h6 class="mt-2">{{ BILLFROM.company }}</h6>
         <div class="align-right">
-          Room 423, Baolong Sqaure, Xiaoshan, Hangzhou, China
+          {{ BILLFROM.address }}
         </div>
-        <div>+86 18258194466</div>
-        <div>18258194466@qq.com</div>
+        <div>{{ BILLFROM.phone }}</div>
+        <div>{{ BILLFROM.email }}</div>
       </div>
     </div>
 
@@ -153,11 +153,13 @@
 </template>
 <script>
 import axios from "axios";
+import BILLFROM from "../../api/bill";
 
 export default {
   name: "QuotationShow",
   data() {
     return {
+      BILLFROM: BILLFROM,
       invoiceData: {}
     };
   },

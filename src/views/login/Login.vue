@@ -1,5 +1,6 @@
 <template>
   <div class="login-page container">
+    {{GLOBAL.url}}
     <div class="login-box">
       <img src="../../assets/imgs/logo.svg" alt="">
       <el-form ref="loginForm" :model="loginForm">
@@ -50,6 +51,7 @@ export default {
 .login-page .login-box {
   position: absolute;
   width: 30%;
+  min-width: 200px;
   height: 50%;
   left: 50%;
   top: 50%;

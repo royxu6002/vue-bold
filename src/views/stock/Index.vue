@@ -4,17 +4,25 @@
             <router-link to="/stock/create">Create</router-link>
         </div>
         <div class="stock-container">
-            <div class="row">
-                <span>Number </span>
-                <span>Image</span>
-                <span>Comment</span>
-            </div>
-            <div class="row" v-for="(data, index) in stocksData" :key="index">
-                <router-link :to="{name: 'StockShow', params: {id: data.id}}">
+            <div class="row" >
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Image</th>
+                        <th scope="col">Comment</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="(data, index) in stocksData" :key="index">
+                        <td><router-link :to="{name: 'StockShow', params: {id: data.id}}">
                     {{data.number}}
-                </router-link>
-                <img :src="data.chart[0].url" alt="">
-                <span>{{data.comment}}</span>
+                </router-link></td>
+                        <td><img :src="data.chart[0].url" alt=""></td>
+                        <td>{{data.comment}}</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
