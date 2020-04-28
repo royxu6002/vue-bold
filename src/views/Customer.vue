@@ -2,14 +2,27 @@
   <div class="customers mt-3">
     <Nav />
     <div class="customers_header">
-      <span>this is a page for customer list</span>
+      <span class="mr-2" @click="showAddGroupInput">+group</span>
+      <small @click="getCustomersData">All</small>
+      <small class="mr-2" 
+        v-for="(data, index) in groupData"
+        :class="{'active': className == data.name}"
+        :key="index" @click="getGroupedCustomers(data, $event)">
+        {{data.name}}
+      </small>
+      <input type="text" v-model="keywords" />
       <router-link :to="{ name: 'CustomerCreate' }">
         <span class="btn btn-default customer_add">
           <i class="iconfont icon-add-account mr-2"></i>
-          Add
         </span>
       </router-link>
-      <input type="text" v-model="keywords" />
+    </div>
+
+    <div v-if="isAddGroupInputShow" style="background: yellowgreen">
+      <form @submit.prevent="sendGroupData">
+        <input v-model="group.groupname" placeholder="Type into group name">
+        <button type="submit">+new group</button>
+      </form>
     </div>
 
     <div class="customers_body">
@@ -41,22 +54,28 @@
   </div>
 </template>
 <script>
-import axios from "axios";
-
 export default {
   name: "Customer",
   data() {
     return {
+      isAddGroupInputShow: false,
       customersData: [],
-      keywords: ""
+      keywords: "",
+      group: {
+        groupname: ""
+      },
+      groupData: "",
+      className: ""
     };
   },
   methods: {
     getCustomersData() {
-      axios.get(this.GLOBAL.baseUrl + "/customer").then(res => {
+      this.axios.get(this.GLOBAL.baseUrl + "/customer")
+      .then(res => {
         this.customersData = res.data;
-      });
-      // .then(err => alert(err))
+        this.className = "";
+      })
+      .catch(err => alert(err))
     },
     goTo(id) {
       this.$router.replace({ path: "/customer", params: { id: id } });
@@ -71,10 +90,38 @@ export default {
       });
       if (data.length == 0) return alert("we dont have the data");
       return (this.customers = data);
+    },
+    showAddGroupInput() {
+      this.isAddGroupInputShow = !this.isAddGroupInputShow
+    },
+    sendGroupData() {
+      // data() group.groupname group对象, 不能直接传输数据 groupname 给后台;
+      this.axios.post(this.GLOBAL.baseUrl+"/group", this.qs.stringify(this.group))
+      .then(res => {
+        alert(res.data.msg);
+        this.group.groupname = "";
+        this.getGroupData();
+      })
+      .catch(err => alert(err))
+    },
+    getGroupData() {
+      let {axios, GLOBAL} = this;
+      axios.get(GLOBAL.baseUrl + "/group")
+      .then(res => this.groupData = res.data)
+      .catch(err => alert(err))
+    },
+    getGroupedCustomers(data) {
+      this.axios.get(this.GLOBAL.baseUrl+"/group/"+data.id+"/customers")
+      .then(res => { 
+        this.customersData = res.data;
+        this.className = data.name;
+      })
+      .catch(err => alert(err))
     }
   },
   created() {
     this.getCustomersData();
+    this.getGroupData();
   },
   computed: {
     // 计算属性的超强过滤功能
@@ -82,7 +129,9 @@ export default {
       const { customersData, keywords } = this;
       let search = keywords.toLowerCase();
       return customersData.filter(customer => {
-        return JSON.stringify(customer).toLowerCase().includes(search);
+        return JSON.stringify(customer)
+          .toLowerCase()
+          .includes(search);
       });
     }
   }
@@ -102,5 +151,11 @@ export default {
 }
 .customer_add {
   color: #fff;
+}
+.active{
+  font-size: 14px;
+  border-radius: 5px;
+  padding: 5px 5px;
+  background-color: blue;
 }
 </style>

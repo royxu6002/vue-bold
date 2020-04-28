@@ -1,6 +1,19 @@
 <template>
   <div class="customer_show container mt-3">
-    <router-link to="/customer">Back</router-link>
+    <div class="customer_show_header">
+      <router-link to="/customer" class="m">Back</router-link>
+      <div>
+        <small
+          v-for="(data, index) in groupData"
+          :key="index"
+          class="mr-2"
+          :class="isChecked(data.id)"
+          @click="switchLabel(data,data.id)"
+        >
+          {{data.name}}
+        </small>
+      </div>
+    </div>
     <div class="card">
       <div class="card-header">
         <span v-if="userData.rank">Rank: {{ userData.rank }}</span>
@@ -100,7 +113,12 @@ export default {
   name: "CustomerShow",
   data() {
     return {
-      userData: ""
+      userData: "",
+      // 取到全部的 group 标签
+      groupData: "",
+      // 取到客户自己的 group 标签
+      customerGroupData: "",
+      btnChecked: true
     };
   },
   methods: {
@@ -123,11 +141,64 @@ export default {
             alert(err);
           });
       }
+    },
+    getGroupData() {
+      this.axios.get(this.GLOBAL.baseUrl+"/group")
+      .then(res => this.groupData = res.data)
+      .catch(err => alert(err))
+    },
+    getCustomerGroupData() {
+      this.axios.get(this.GLOBAL.baseUrl+"/customer/"+this.$route.params.id+"/groupids")
+      .then(res => this.customerGroupData = res.data)
+      .catch(err => alert(err))
+    },
+    switchLabel(data, id) {
+      let result = this.customerGroupData.includes(id);
+      if(result) {
+        //表示客户已经有该标签了, 点击是发送 delete 请求, 去掉该标签;
+        window.confirm(`确认删除客户拥有的 ${data.name} 标签么?`)
+        this.axios.delete(this.GLOBAL.baseUrl+"/customer/"+this.$route.params.id+"/bleach/"+id)
+        .then(res => { 
+          alert(res.data.msg);
+          // es6 找到 id 的 index, 再使用 spice 方法;
+          let index =  this.customerGroupData.findIndex(n => n == id);
+          window.console.log(index);
+          this.customerGroupData.splice(index, 1);
+        })
+        .catch(err => alert(err))
+      } else {
+        // 否则发送的 post 请求, 添加该标签;
+        this.axios.post(this.GLOBAL.baseUrl+"/customer/"+this.$route.params.id+"/dye/"+id)
+        .then(res => {
+          alert(res.data.msg);
+          this.customerGroupData.push(id);
+        })
+        .catch(err => alert(err))
+      }
     }
   },
   created() {
     this.getCustomerDetail();
+    this.getGroupData();
+    this.getCustomerGroupData();
+  },
+  computed: {
+    isChecked() {
+      return (id) => {
+        if (this.customerGroupData.includes(id)) return "btn-primary";
+        return "btn-default";
+      }
+    }
   }
 };
 </script>
-<style></style>
+<style scoped>
+.customer_show_header{
+  display: flex;
+  justify-content: space-between;
+}
+.btn-primary{
+  padding: 5px 5px;
+  border-radius: 5px;
+}
+</style>
