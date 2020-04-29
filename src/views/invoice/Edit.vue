@@ -16,10 +16,17 @@
           class="mr-3"
         />
         <small>Type</small>
-        <select class="ml-2 inline-control" v-model="invoiceData.type">
+        <select class="ml-2 mr-3 inline-control" v-model="invoiceData.type">
           <option value="">Please select</option>
           <option value="invoice">Invoice</option>
           <option value="quotation">Quotation</option>
+        </select>
+
+        <small>Currency</small>
+        <select class="ml-2 inline-control" v-model="invoiceData.currency_type" required>
+          <option value="$">US$</option>
+          <option value="¥">CN¥</option>
+          <option value="€">EU€</option>
         </select>
       </div>
       <div>
@@ -130,6 +137,16 @@
         </select>
       </div>
 
+      <div class="column money">
+        <small>currency</small>
+        <select class="form-control" v-model="orderProduct.order_info.currency" required>
+          <option value="US$" selected>US$</option>
+          <option value="EU€">EU€</option>
+          <option value="CN¥">CN¥</option>
+          >
+        </select>
+      </div>
+
       <div class="column cost">
         <small>cost</small>
         <input
@@ -172,7 +189,7 @@
       <div class="column-right price">
         <small>Price</small>
         <div>
-          <span>$</span>
+          <span>{{ orderProduct.order_info.currency }}</span>
           {{ orderProduct.order_info.product_cost * orderProduct.order_info.product_quantity || "" }}
         </div>
       </div>
@@ -239,12 +256,12 @@
       <div class="wrap">
         <div class="wrap-item">
           <span>Subtotal</span>
-          <span>$ {{ subtotal }}</span>
+          <span>{{ invoiceData.currency_type }} {{ subtotal }}</span>
         </div>
         <div class="wrap-item">
           <span>Discount</span>
           <span>
-            $<input
+            {{ invoiceData.currency_type }}<input
               v-model="invoiceData.invoice_discount"
               class="ml-1 noborder-input"
               @input="changeWidth('discountInput')"
@@ -255,7 +272,7 @@
         <div class="wrap-item">
           <span>Shipping cost</span>
           <span>
-            $
+          {{ invoiceData.currency_type }}
             <input
               v-model="invoiceData.invoice_shipment_cost"
               class="ml-1 noborder-input"
@@ -267,7 +284,7 @@
         <hr />
         <div class="wrap-item">
           <span>Invoice Total</span>
-          <span> $ {{ total }} </span>
+          <span>{{ invoiceData.currency_type }} {{ total }} </span>
         </div>
 
         <div class="float-right mt-3">
@@ -362,6 +379,7 @@ export default {
       this.invoiceData.products.push({
         order_info: {
           product_id: "",
+          currency: "",
           product_cost: "",
           product_quantity: "",
           product_number_per_carton: "",
@@ -456,11 +474,14 @@ export default {
   .item {
     width: 48%;
   }
+  .money {
+    width: 4%;
+  }
   .cost {
-    width: 10%;
+    width: 8%;
   }
   .quantity {
-    width: 10%;
+    width: 8%;
   }
   .qty-per-carton {
     width: 16%;
@@ -472,13 +493,13 @@ export default {
     text-align: right;
   }
 }
-.wrap {
-  .wrap-item {
-    display: flex;
-    width: 300px;
-    justify-content: space-between;
-  }
+
+.wrap .wrap-item {
+  display: flex;
+  width: 300px;
+  justify-content: space-between;
 }
+
 .action-button {
   border-radius: 0.25em;
   border: 1px solid #eee;

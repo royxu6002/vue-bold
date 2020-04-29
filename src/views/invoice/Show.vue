@@ -30,7 +30,7 @@
       </div>
       <div class="right">
         <small>Invoice Total </small>
-        <div class="invoice-value">${{ invoiceData.total }}</div>
+        <div class="invoice-value">{{invoiceData.currency_type}}{{ invoiceData.total }}</div>
       </div>
     </div>
     <div class="row invoice-table">
@@ -65,10 +65,10 @@
             </span>
           </td>
           <td>{{ product.hs_code }}</td>
-          <td>US${{ product.order_info.product_cost }}</td>
+          <td>{{ product.order_info.currency }}{{ product.order_info.product_cost }}</td>
           <td>{{ product.order_info.product_quantity }}</td>
           <td align="right">
-            US${{
+            {{ product.order_info.currency }}{{
               product.order_info.product_cost *
                 product.order_info.product_quantity
             }}
@@ -78,16 +78,16 @@
         <tr style="font-weight: 500">
           <td colspan="2" rowspan="6"></td>
           <td colspan="2" align="left">Subtotal</td>
-          <td align="right">US${{subtotal}}</td>
+          <td align="right">{{invoiceData.currency_type}}{{subtotal}}</td>
         </tr>
         <tr
           style="font-weight: 500;border-bottom: 1px solid #ccc;border-top:1px solid #ccc"
           v-if="invoiceData.shipment_cost"
         >
           <td colspan="2" align="left">
-            TNT Shipping Cost
+            Shipping Cost
           </td>
-          <td align="right">US${{ invoiceData.shipment_cost }}</td>
+          <td align="right">{{invoiceData.currency_type}}{{ invoiceData.shipment_cost }}</td>
         </tr>
         <tr
           style="font-weight: 500;border-bottom: 1px solid #ccc;border-top:1px solid #ccc"
@@ -96,22 +96,22 @@
           <td colspan="2" align="left">
             Discount
           </td>
-          <td align="right">US${{ invoiceData.discount }}</td>
+          <td align="right">{{invoiceData.currency_type}}{{ invoiceData.discount }}</td>
         </tr>
         <tr style="font-weight: 500;border-bottom: 1px solid #ccc">
           <td colspan="2" align="left">
             Invoice Total
           </td>
-          <td align="right">US${{invoiceData.total}}</td>
+          <td align="right">{{invoiceData.currency_type}}{{invoiceData.total}}</td>
         </tr>
         <tr style="font-weight: 500;border-bottom: 1px solid #ccc">
           <td colspan="2" align="left">Paid to date</td>
-          <td align="right">US${{payments}}</td>
+          <td align="right">{{invoiceData.currency_type}}{{payments}}</td>
         </tr>
 
         <tr style="font-weight:500;font-size: 1.1em">
           <td colspan="2" align="left">BALANCE</td>
-          <td align="right">US${{balance}}</td>
+          <td align="right">{{invoiceData.currency_type}}{{balance}}</td>
         </tr>
       </table>
     </div>
@@ -158,16 +158,30 @@
             PRICE TERMS: {{invoiceData.price_term}}, CHINA<br />
             PAYMENT TERMS: {{invoiceData.payment_term}}. <br />
             Please kindly remit the payment to following beneficiary's BANK:<br /><br />
-            <b
-              >BENEFICIARY NAME: COMLIBRA ELECTRONIC CO., LTD..<br />
-              A/C NO. FOR USD: NRA1 5623 1420 1050 0000 153<br />
-              <!-- A/C NO. FOR EUR: NRA1 5623 3820 1050 0000 046<br> -->
-              BENEFICIARY BANK: ZHEJIANG CHOUZHOU COMMERCIAL <br>
-              BANK ADDRESS:YIWULEYUAN EAST, JIANGBIN RD, YIWU, ZHEJIANG, CHINA 
-              <br>SWIFT BIC: CZCBCN2X<br />
-              CORRESPONDENT BANK: BANK OF AMERICA N.A.NEW YORK BRANCH <br />
-              SWIFT BIC: BOFAUS3N</b
-            >
+
+            <div style="font-weight: 500">
+            <div v-if="invoiceData.payment_term == 'Paypal'">
+              <div>Paypal account:</div>
+              <div>BENEFICIARY.PUBLIC.PAYPAL.EMAIL</div>
+            </div>
+            <div v-if="invoiceData.currency_type == '¥'">
+              <div>{{BENEFICIARY.PRIVATE.EVERBRIGHTBANK.CNNAME}}</div>
+              <div>{{BENEFICIARY.PRIVATE.EVERBRIGHTBANK.ENNAME}}</div>
+              <div>{{BENEFICIARY.PRIVATE.EVERBRIGHTBANK.ACCOUNT}}</div>
+              <div>{{BENEFICIARY.PRIVATE.EVERBRIGHTBANK.ACCOUNTNO}}</div>
+            </div>
+            <div v-else>
+              <div>Bank account:</div>
+              <div>{{ BENEFICIARY.PUBLIC.BANK.ACCOUNTNAME }}</div>
+              <div v-if="invoiceData.currency_type == '$'">{{BENEFICIARY.PUBLIC.BANK.USDACCOUNT}}</div>
+              <div v-if="invoiceData.currency_type == '€'">{{BENEFICIARY.PUBLIC.BANK.EURACCOUNT}}</div>
+              <div>{{BENEFICIARY.PUBLIC.BANK.NAME}}</div>
+              <div>{{BENEFICIARY.PUBLIC.BANK.ADDRESS}}</div>
+              <div>{{BENEFICIARY.PUBLIC.BANK.SWIFT}}</div>
+              <div>{{BENEFICIARY.PUBLIC.BANK.CORRESPONDENTBANK}}</div>
+              <div><div>{{BENEFICIARY.PUBLIC.BANK.CORRESPONDENTBANKSWIFT}}</div></div>
+            </div>
+            </div>
           </td>
         </tr>
         <tr>
@@ -267,20 +281,21 @@
   </div>
 </template>
 <script>
-import axios from "axios";
 import BILLFROM from "../../api/bill";
+import BENEFICIARY from "../../api/beneficiary";
 
 export default {
   name: "InvoiceCreate",
   data() {
     return {
       BILLFROM: BILLFROM,
+      BENEFICIARY: BENEFICIARY,
       invoiceData: {}
     };
   },
   methods: {
     getInvoiceData() {
-      axios
+      this.axios
         .get(this.GLOBAL.baseUrl + "/invoice/" + this.$route.params.id)
         .then(res => {
           this.invoiceData = res.data;

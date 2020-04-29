@@ -55,8 +55,8 @@
               {{ invoice.client.company }}
             </router-link>
           </td>
-          <td>US${{ invoice.total }}</td>
-          <td v-if="type=='invoice'">US${{ balance(invoice) }}</td>
+          <td>{{invoice.currency_type}}{{ invoice.total }}</td>
+          <td v-if="type=='invoice'">{{invoice.currency_type}}{{ balance(invoice) }}</td>
           <td v-if="type=='invoice'">
             {{ invoice.shipment[0]? invoice.shipment[0].status.status:'no data' }}
             <!-- 有 shipmeng 才会产生 commercialInvoice -->

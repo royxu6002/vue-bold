@@ -15,10 +15,17 @@
           class="mr-3"
         />
         <small>Type</small>
-        <select class="ml-2 inline-control" v-model="invoiceData.type">
+        <select class="ml-2 inline-control mr-3" v-model="invoiceData.type" required>
           <option value="">Please select</option>
           <option value="invoice">Invoice</option>
           <option value="quotation">Quotation</option>
+        </select>
+
+        <small>Currency</small>
+        <select class="ml-2 inline-control" v-model="invoiceData.currency_type" required>
+          <option value="$">US$</option>
+          <option value="¥">CN¥</option>
+          <option value="€">EU€</option>
         </select>
       </div>
       <div>
@@ -129,6 +136,16 @@
         </select>
       </div>
 
+      <div class="column money">
+        <small>currency</small>
+        <select class="form-control" v-model="orderProduct.currency" required>
+          <option value="US$" selected>US$</option>
+          <option value="EU€">EU€</option>
+          <option value="CN¥">CN¥</option>
+          >
+        </select>
+      </div>
+      
       <div class="column cost">
         <small>cost</small>
         <input
@@ -170,8 +187,7 @@
 
       <div class="column-right price">
         <small>Price</small>
-        <div>
-          <span>$</span>
+        <div>{{invoiceData.currency_type}}
           {{ orderProduct.product_cost * orderProduct.product_quantity || "" }}
         </div>
       </div>
@@ -238,12 +254,12 @@
       <div class="wrap">
         <div class="wrap-item">
           <span>Subtotal</span>
-          <span>$ {{ subtotal }}</span>
+          <span>{{invoiceData.currency_type}}{{ subtotal }}</span>
         </div>
         <div class="wrap-item">
           <span>Discount</span>
-          <span>
-            $<input
+          <span>{{invoiceData.currency_type}}
+            <input
               v-model="invoiceData.invoice_discount"
               class="ml-1 noborder-input"
               @input="changeWidth('discountInput')"
@@ -253,8 +269,7 @@
         </div>
         <div class="wrap-item">
           <span>Shipping cost</span>
-          <span>
-            $
+          <span>{{invoiceData.currency_type}}
             <input
               v-model="invoiceData.invoice_shipment_cost"
               class="ml-1 noborder-input"
@@ -266,15 +281,15 @@
         <hr />
         <div class="wrap-item">
           <span>Invoice Total</span>
-          <span> $ {{ total }} </span>
+          <span>{{invoiceData.currency_type}}{{ total }} </span>
         </div>
         <div class="wrap-item">
           <span>Paid to date</span>
-          <span> $ {{ paymentsData }} </span>
+          <span>{{invoiceData.currency_type}}{{ paymentsData }} </span>
         </div>
         <div class="wrap-item">
           <span>Balance</span>
-          <span>
+          <span>{{invoiceData.currency_type}}
             {{ balance }}
           </span>
         </div>
@@ -298,6 +313,7 @@ export default {
   data() {
     return {
       invoiceData: {
+        currency_type: "",
         invoice_issued_date: "",
         invoice_due_date: "",
         client_id: "",
@@ -309,6 +325,7 @@ export default {
         order_info: [
           {
             product_id: "",
+            currency: "",
             product_cost: "",
             product_quantity: "",
             product_number_per_carton: "",
@@ -390,6 +407,7 @@ export default {
     addNewItem() {
       this.invoiceData.order_info.push({
         product_id: "",
+        currency: "",
         product_cost: "",
         product_quantity: "",
         product_number_per_carton: "",
@@ -450,10 +468,10 @@ export default {
     },
     balance() {
       return this.total - this.paymentsData;
-    },
-    filteredPackagesData() {
-      return this.packagesData.filter(p => p.product_package_item_num === 10);
     }
+    // filteredPackagesData() {
+    //   return this.packagesData.filter(p => p.product_package_item_num === 10);
+    // }
   }
 };
 </script>
@@ -488,11 +506,14 @@ export default {
   .item {
     width: 48%;
   }
+  .money {
+    width: 4%;
+  }
   .cost {
-    width: 10%;
+    width: 8%;
   }
   .quantity {
-    width: 10%;
+    width: 8%;
   }
   .qty-per-carton {
     width: 16%;
@@ -504,13 +525,11 @@ export default {
     text-align: right;
   }
 }
-.wrap {
-  .wrap-item {
+.wrap-item {
     display: flex;
     width: 300px;
     justify-content: space-between;
   }
-}
 .action-button {
   border-radius: 0.25em;
   border: 1px solid #eee;

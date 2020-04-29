@@ -137,7 +137,7 @@ export default {
   }
 };
 </script>
-<style>
+<style scoped>
 .customers_header {
   background-color: coral;
   display: flex;

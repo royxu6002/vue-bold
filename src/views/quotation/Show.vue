@@ -62,10 +62,10 @@
           <td>
             <span v-html="product.product_brief_intro"></span>
           </td>
-          <td>US${{ product.order_info.product_cost }}</td>
+          <td>{{product.order_info.currency}}{{ product.order_info.product_cost }}</td>
           <td>{{ product.order_info.product_quantity }}</td>
           <td align="right">
-            US${{
+            {{product.order_info.currency}}{{
               product.order_info.product_cost *
                 product.order_info.product_quantity
             }}
@@ -75,7 +75,7 @@
         <tr style="font-weight: 500">
           <td colspan="3" rowspan="6"></td>
           <td colspan="2" align="left">Subtotal</td>
-          <td align="right">US${{ subtotal }}</td>
+          <td align="right">{{invoiceData.currency_type}}{{ subtotal }}</td>
         </tr>
         <tr
           style="font-weight: 500;border-bottom: 1px solid #ccc;border-top:1px solid #ccc"
@@ -84,7 +84,7 @@
           <td colspan="2" align="left">
             TNT Shipping Cost
           </td>
-          <td align="right">US${{ invoiceData.shipment_cost }}</td>
+          <td align="right">{{invoiceData.currency_type}}{{ invoiceData.shipment_cost }}</td>
         </tr>
         <tr
           style="font-weight: 500;border-bottom: 1px solid #ccc;border-top:1px solid #ccc"
@@ -93,13 +93,13 @@
           <td colspan="2" align="left">
             Discount
           </td>
-          <td align="right">US${{ invoiceData.discount }}</td>
+          <td align="right">{{invoiceData.currency_type}}{{ invoiceData.discount }}</td>
         </tr>
         <tr style="font-weight: 500;border-bottom: 1px solid #ccc">
           <td colspan="2" align="left">
             Total
           </td>
-          <td align="right">US${{ invoiceData.total }}</td>
+          <td align="right">{{invoiceData.currency_type}}{{ invoiceData.total }}</td>
         </tr>
       </table>
     </div>
