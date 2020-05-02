@@ -114,6 +114,11 @@ const routes = [
     component: () => import("../views/invoice/documents/PL.vue")
   },
   {
+    path: "/invoice/:id/purchase/create",
+    name: "PurchaseCreate",
+    component: () => import("../views/purchase/Create.vue")
+  },
+  {
     path: "/purchase/:id",
     name: "PurchaseOrder",
     component: () => import("../views/purchase/Purchase.vue")

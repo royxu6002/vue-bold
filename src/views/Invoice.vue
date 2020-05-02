@@ -3,8 +3,8 @@
     <Nav />
     <div class="row invoice-quotation-header">
       <div class="mr-2"><router-link to="/invoice/create">Create Invoice</router-link></div>
-      <div :class="{active: type == 'invoice'}" class="mr-2"><span @click="toggleType('invoice')">Invoice</span></div>
-      <div :class="{active: type == 'quotation'}" class="mr-2"><span @click="toggleType('quotation')">Quotation</span></div>
+      <div :class="{invoiceActive: type == 'invoice'}" class="mr-2"><span @click="toggleType('invoice')">Invoice</span></div>
+      <div :class="{invoiceActive: type == 'quotation'}" class="mr-2"><span @click="toggleType('quotation')">Quotation</span></div>
     </div>
     <div class="invoice-table">
       <table class="table table-hover">
@@ -79,6 +79,10 @@
               <router-link :to="{name: 'InvoiceEdit', params: {id: invoice.id}}">
                 <i class="iconfont icon-libra"></i>
               </router-link>
+            <!-- 创建采购订单 -->
+            <router-link :to="{name: 'PurchaseCreate', params: {id: invoice.id}}" v-if="type == 'invoice'">
+                PO
+              </router-link>
           </td>
         </tr>
       </table>
@@ -142,7 +146,7 @@ export default {
 .invoice-quotation-header {
   margin: 20px;
 }
-.invoice-quotation-header .active{
+.invoice-quotation-header .invoice-active{
   font-weight: bold;
 }
 </style>
