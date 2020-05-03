@@ -13,10 +13,10 @@
           <th>Issued</th>
           <th>Due</th>
           <th>client</th>
-          <th v-if="type == 'invoice'">invoice value</th>
-          <th v-else>quotation value</th>
+          <th>Value</th>
           <th v-if="type == 'invoice'">balance</th>
           <th v-if="type == 'invoice'">shipment</th>
+          <th v-if="type=='invoice'">Purchase</th>
           <th>OPER.</th>
         </tr>
         <!-- 使用计算属性, 传递参数拿到过滤的数据 -->
@@ -44,9 +44,6 @@
             >
               {{ invoice.id }}
             </router-link>
-
-            
-
           </td>
           <td>{{ invoice.issued_date }}</td>
           <td>{{ invoice.due_date }}</td>
@@ -74,14 +71,28 @@
               ><i class="iconfont icon-form mr-3"></i
             ></router-link>
           </td>
+          <td v-if="type=='invoice'">
+            <!-- 创建采购订单 -->
+            <span v-if="invoice.purchase_info.length>0">
+              <router-link :to="{name: 'PurchaseUpdate', params: {id: invoice.id}}">
+                U_PO
+              </router-link>
+              <router-link :to="{name: 'PurchaseShow', params: {id: invoice.id}}">
+                See_PO
+              </router-link>
+            </span>
+
+            <span v-else>
+              <router-link :to="{name: 'PurchaseCreate', params: {id: invoice.id}}" v-if="type == 'invoice'">
+                C_PO
+              </router-link>
+            </span>
+              
+          </td>
           <td>
-            <!-- 发票编辑 -->
+             <!-- 发票编辑 -->
               <router-link :to="{name: 'InvoiceEdit', params: {id: invoice.id}}">
                 <i class="iconfont icon-libra"></i>
-              </router-link>
-            <!-- 创建采购订单 -->
-            <router-link :to="{name: 'PurchaseCreate', params: {id: invoice.id}}" v-if="type == 'invoice'">
-                PO
               </router-link>
           </td>
         </tr>
@@ -146,7 +157,7 @@ export default {
 .invoice-quotation-header {
   margin: 20px;
 }
-.invoice-quotation-header .invoice-active{
+.invoice-quotation-header .active{
   font-weight: bold;
 }
 </style>

@@ -116,12 +116,17 @@ const routes = [
   {
     path: "/invoice/:id/purchase/create",
     name: "PurchaseCreate",
-    component: () => import("../views/purchase/Create.vue")
+    component: () => import("../views/invoice/purchase/Create.vue")
   },
   {
-    path: "/purchase/:id",
-    name: "PurchaseOrder",
-    component: () => import("../views/purchase/Purchase.vue")
+    path: "/invoice/:id/purchase/update",
+    name: "PurchaseUpdate",
+    component: () => import("../views/invoice/purchase/Update.vue")
+  },
+  {
+    path: "/invoice/:id/purchase/show",
+    name: "PurchaseShow",
+    component: () => import("../views/invoice/purchase/Show.vue")
   },
   {
     path: "/shipment",

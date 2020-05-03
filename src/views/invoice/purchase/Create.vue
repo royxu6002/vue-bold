@@ -165,16 +165,16 @@ export default {
       this.formWrap[i].quantity = '';
     },
     submitFormData() {
-      let formData = new FormData();
-      formData.append('formWrap', JSON.stringify(this.formWrap));
-      let config = {
-                headers: {'Content-Type': 'application/json'}
-            };
-      this.axios.post(this.GLOBAL.baseUrl+"/invoice/"+this.$route.params.id+"/purchases", formData, config)
+      // let formData = new FormData();
+      // formData.append('formWrap', JSON.stringify(this.formWrap));
+      // let config = {
+      //           headers: {'Content-Type': 'application/json'}
+      //       };
+      this.axios.post(this.GLOBAL.baseUrl+"/invoice/"+this.$route.params.id+"/purchases", this.qs.stringify(this.formWrap))
       .then(res => {
-        // alert(res.data.msg);
         alert(res.data.msg);
-        this.$router.replace("/invoice")
+        // window.console.log(res.data);
+        this.$router.replace("/invoice");
       })
       .catch(err => { 
         alert(err);
