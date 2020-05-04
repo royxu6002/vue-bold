@@ -298,9 +298,6 @@
 </template>
 
 <script>
-import axios from "axios";
-import qs from "qs";
-
 export default {
   name: "InvoiceEdit",
   data() {
@@ -315,13 +312,13 @@ export default {
   },
   methods: {
     getInvoiceData() {
-      axios
+      this.axios
         .get(this.GLOBAL.baseUrl + "/invoices/" + this.$route.params.id)
         .then(res => (this.invoiceData = res.data[0]))
         .catch(err => alert(err));
     },
     getCustomersData() {
-      axios
+      this.axios
         .get(this.GLOBAL.baseUrl + "/client")
         .then(res => {
           if (res.status == 200) {
@@ -336,7 +333,7 @@ export default {
      * getProductsData, getPackagesData 可以考虑合并为一个接口.
      */
     getProductsData() {
-      axios
+      this.axios
         .get(this.GLOBAL.baseUrl + "/products")
         .then(res => {
           if (res.status == 200) {
@@ -350,7 +347,7 @@ export default {
     // 接口拿到 productPackages 总数据.
     getPackagesData(id) {
       if (!id) return alert("please select a product");
-      axios
+      this.axios
         .get(this.GLOBAL.baseUrl + "/packages/" + id)
         .then(res => {
           if (res.status == 200) {
@@ -407,8 +404,8 @@ export default {
     // 控制器接口还没有写, 未测试;
     updateInvoice() {
       this.transferTotal();
-      axios
-        .put(this.GLOBAL.baseUrl + "/invoice/" + this.$route.params.id, qs.stringify(this.invoiceData))
+      this.axios
+        .put(this.GLOBAL.baseUrl + "/invoice/" + this.$route.params.id, this.qs.stringify(this.invoiceData))
         .then(res => {
           if (res.status == 200) {
             alert(res.data.msg);

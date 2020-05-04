@@ -152,20 +152,16 @@
   </div>
 </template>
 <script>
-import axios from "axios";
-import BILLFROM from "../../api/bill";
-
 export default {
   name: "QuotationShow",
   data() {
     return {
-      BILLFROM: BILLFROM,
       invoiceData: {}
     };
   },
   methods: {
     getInvoiceData() {
-      axios
+      this.axios
         .get(this.GLOBAL.baseUrl + "/invoice/" + this.$route.params.id)
         .then(res => {
           this.invoiceData = res.data;

@@ -91,8 +91,6 @@
   </div>
 </template>
 <script>
-import axios from "axios";
-
 export default {
   name: "InvoiceCreate",
   data() {
@@ -102,7 +100,7 @@ export default {
   },
   methods: {
     getInvoiceData() {
-      axios
+      this.axios
         .get(this.GLOBAL.baseUrl + "/invoice/" + this.$route.params.id)
         .then(res => {
           this.invoiceData = res.data;

@@ -106,9 +106,6 @@
   </div>
 </template>
 <script>
-import axios from "axios";
-import qs from "qs";
-
 export default {
   name: "TransactionCreate",
   data() {
@@ -119,16 +116,16 @@ export default {
   },
   methods: {
     getInvoicesData() {
-      axios
+      this.axios
         .get(this.GLOBAL.baseUrl + "/invoice")
         .then(res => (this.invoicesData = res.data))
         .catch(err => alert(err));
     },
     createTransaction() {
-      axios
+      this.axios
         .post(
           this.GLOBAL.baseUrl + "/transaction",
-          qs.stringify(this.transactionData)
+          this.qs.stringify(this.transactionData)
         )
         .then(res => {
             alert(res.data.msg);

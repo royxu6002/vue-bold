@@ -29,7 +29,6 @@
   </div>
 </template>
 <script>
-import axios from "axios";
 export default {
   name: "Faq",
   data() {
@@ -58,7 +57,7 @@ export default {
     }
   },
   created() {
-    axios
+    this.axios
       .get(this.GLOBAL.baseUrl + "/faq")
       .then(res => {
         this.faqs = res.data;

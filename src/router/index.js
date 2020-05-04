@@ -159,6 +159,26 @@ const routes = [
     component: () => import("../views/stock/Edit.vue")
   },
   {
+    path: "/supplier/index",
+    name: "SupplierIndex",
+    component: () => import("../views/supplier/Index.vue")
+  },
+  {
+    path: "/supplier/create",
+    name: "SupplierCreate",
+    component: () => import("../views/supplier/Create.vue")
+  },
+  {
+    path: "/supplier/:id/edit",
+    name: "SupplierEdit",
+    component: () => import("../views/supplier/Edit.vue")
+  },
+  {
+    path: "/supplier/:id",
+    name: "SupplierShow",
+    component: () => import("../views/supplier/Show.vue")
+  },
+  {
     path: "/test",
     name: "Test",
     component: () => import("../views/Test.vue"),

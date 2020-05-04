@@ -5,7 +5,7 @@
       <router-link to="/customer">Customer Leads</router-link>
       <router-link to="/client">Client</router-link>
       <router-link to="/invoice">Invoice</router-link>
-      <router-link to="/purchase/index">Purchase</router-link>
+      <router-link to="/supplier/index">Supplier</router-link>
       <router-link to="/transaction">Transaction</router-link>
       <router-link to="/shipment">Shipment</router-link>
       <router-link to="/price">Price</router-link>

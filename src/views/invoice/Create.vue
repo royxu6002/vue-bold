@@ -305,9 +305,6 @@
 </template>
 
 <script>
-import axios from "axios";
-import qs from "qs";
-
 export default {
   name: "InvoiceCreate",
   data() {
@@ -350,7 +347,7 @@ export default {
   },
   methods: {
     getCustomersData() {
-      axios
+      this.axios
         .get(this.GLOBAL.baseUrl + "/client")
         .then(res => {
           if (res.status == 200) {
@@ -365,7 +362,7 @@ export default {
      * getProductsData, getPackagesData 可以考虑合并为一个接口.
      */
     getProductsData() {
-      axios
+      this.axios
         .get(this.GLOBAL.baseUrl + "/products")
         .then(res => {
           if (res.status == 200) {
@@ -379,7 +376,7 @@ export default {
     // 接口拿到 productPackages 总数据.
     getPackagesData(id) {
       if(!id) return alert('please select a product');
-      axios
+      this.axios
         .get(this.GLOBAL.baseUrl + "/packages/" + id)
         .then(res => {
           if (res.status == 200) {
@@ -433,8 +430,8 @@ export default {
     },
     createInvoice() {
       this.transferTotal();
-      axios
-        .post(this.GLOBAL.baseUrl + "/invoice", qs.stringify(this.invoiceData))
+      this.axios
+        .post(this.GLOBAL.baseUrl + "/invoice", this.qs.stringify(this.invoiceData))
         .then(res => {
           window.console.log(res.data);
           if (res.status == 200) {

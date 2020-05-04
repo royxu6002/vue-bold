@@ -7,8 +7,8 @@
     <div class="code-serial">
       <div>编号: </div>
       <div>
-        <small>#{{$route.params.id}}-</small>
-        <small>{{ids.length}}-</small>
+        <small>CE#{{$route.params.id}}-</small>
+        <small @click="hiddenData">{{ids.length}}-</small>
         <span v-for="(n, ind) in ids" 
         :key="ind" @click="selectId(n)" 
         :class="{active: n == selectedId}">
@@ -117,7 +117,6 @@
 </template>
 <script>
 // import { getFilterArray } from "../../util/getFilterArray";
-import BILLFROM from "../../../api/bill";
 
 export default {
   name: "PurchaseShow",
@@ -127,7 +126,6 @@ export default {
       ids: [],
       selectedId: "",
       suppliersData: "",
-      BILLFROM: BILLFROM
     };
   },
   methods: {
@@ -149,6 +147,9 @@ export default {
     },
     selectId(id) {
       this.selectedId = id;
+    },
+    hiddenData(){
+      this.selectedId = "";
     }
   },
   created() {
@@ -189,9 +190,7 @@ export default {
   justify-content: space-between;
 }
 .active {
-  /* font-weight: 500; */
-  /* border: 1px solid $ddd; */
-  color: white;
+  color: white !important;
   background-color: black;
   padding: 5px;
 }

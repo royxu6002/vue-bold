@@ -3,8 +3,8 @@
     <Nav />
     <div class="row invoice-quotation-header">
       <div class="mr-2"><router-link to="/invoice/create">Create Invoice</router-link></div>
-      <div :class="{invoiceActive: type == 'invoice'}" class="mr-2"><span @click="toggleType('invoice')">Invoice</span></div>
-      <div :class="{invoiceActive: type == 'quotation'}" class="mr-2"><span @click="toggleType('quotation')">Quotation</span></div>
+      <div :class="{active: type == 'invoice'}" class="mr-2"><span @click="toggleType('invoice')">Invoice</span></div>
+      <div :class="{active: type == 'quotation'}" class="mr-2"><span @click="toggleType('quotation')">Quotation</span></div>
     </div>
     <div class="invoice-table">
       <table class="table table-hover">
@@ -101,8 +101,6 @@
   </div>
 </template>
 <script>
-import axios from "axios";
-
 export default {
   data() {
     return {
@@ -113,7 +111,7 @@ export default {
   },
   methods: {
     getInvoicesData() {
-      axios
+      this.axios
         .get(this.GLOBAL.baseUrl + "/invoice")
         .then(res => {
           if (res.status == 200) {

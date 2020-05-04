@@ -71,8 +71,6 @@
   </div>
 </template>
 <script>
-import axios from "axios";
-
 export default {
   data() {
     return {
@@ -82,7 +80,7 @@ export default {
   },
   methods: {
     getTransactionsData() {
-      axios
+      this.axios
         .get(this.GLOBAL.baseUrl + "/transaction")
         .then(res => {
           this.transactionsData = res.data;
@@ -94,7 +92,7 @@ export default {
     },
     deleteTransaction(id) {
       if(window.confirm(`Are you sure delete ${id}的 transaction?`)) {
-        axios
+        this.axios
         .delete(this.GLOBAL.baseUrl + "/transaction/" + id)
         .then(res => {
           alert(res.data.msg);

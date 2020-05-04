@@ -281,15 +281,10 @@
   </div>
 </template>
 <script>
-import BILLFROM from "../../api/bill";
-import BENEFICIARY from "../../api/beneficiary";
-
 export default {
   name: "InvoiceCreate",
   data() {
     return {
-      BILLFROM: BILLFROM,
-      BENEFICIARY: BENEFICIARY,
       invoiceData: {}
     };
   },

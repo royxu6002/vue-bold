@@ -10,6 +10,13 @@ import store from "./store";
 import _global from "./api/global_variables";
 Vue.prototype.GLOBAL = _global;
 
+// 引入全局 BILLFROM, BENEFICIARY api
+import billfrom from "./api/bill";
+Vue.prototype.BILLFROM = billfrom;
+import beneficiary from "./api/beneficiary";
+Vue.prototype.BENEFICIARY = beneficiary;
+
+
 // 引入 icon 图标
 import "@/assets/css/icon-font/iconfont.css";
 

@@ -136,9 +136,6 @@
   </div>
 </template>
 <script>
-import axios from "axios";
-import qs from "qs";
-
 export default {
   data() {
     return {
@@ -149,22 +146,22 @@ export default {
   },
   methods: {
     getInvoicesData() {
-      axios
+      this.axios
         .get(this.GLOBAL.baseUrl + "/invoice")
         .then(res => (this.invoicesData = res.data))
         .catch(err => alert(err));
     },
     getShipmentsData() {
-      axios
+      this.axios
         .get(this.GLOBAL.baseUrl + "/shipment")
         .then(res => (this.shipmentsData = res.data))
         .catch(err => alert(err));
     },
     createShipment() {
-      axios
+      this.axios
         .post(
           this.GLOBAL.baseUrl + "/shipment",
-          qs.stringify(this.shipmentData)
+          this.qs.stringify(this.shipmentData)
         )
         .then(res => {
           alert(res.data.msg);
@@ -174,7 +171,7 @@ export default {
     },
     deleteShipment(id) {
       if (window.confirm(`Are you sure to delete id=${id} shipment info?`)) {
-        axios
+        this.axios
           .delete(this.GLOBAL.baseUrl + "/shipment/" + id)
           .then(res => {
             alert(res.data.msg);
