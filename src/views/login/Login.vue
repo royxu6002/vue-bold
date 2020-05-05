@@ -5,10 +5,10 @@
       <img src="../../assets/imgs/logo.svg" alt="">
       <el-form ref="loginForm" :model="loginForm">
       <el-form-item>
-        <el-input v-model="loginForm.email" prefix-icon="iconfont icon-account"></el-input>
+        <el-input v-model="loginForm.email" prefix-icon="iconfont icon-account icon-smallfix"></el-input>
       </el-form-item>
       <el-form-item>
-        <el-input v-model="loginForm.password" prefix-icon="iconfont icon-tiaoshi" show-password></el-input>
+        <el-input v-model="loginForm.password" prefix-icon="iconfont icon-tiaoshi icon-smallfix" show-password></el-input>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="login">登录</el-button>

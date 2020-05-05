@@ -44,6 +44,7 @@ export default {
             .then(res => {
                 // window.console.log(res.data);
                 alert(res.data.msg);
+                this.$router.push("/supplier/index");
             })
             .catch(err => alert(err))
         }

@@ -13,7 +13,7 @@
       <input type="text" v-model="keywords" />
       <router-link :to="{ name: 'CustomerCreate' }">
         <span class="btn btn-default customer_add">
-          <i class="iconfont icon-add-account mr-2"></i>
+          <i class="iconfont icon-add-account mr-2 icon-smallfix"></i>
         </span>
       </router-link>
     </div>
@@ -21,7 +21,9 @@
     <div v-if="isAddGroupInputShow" style="background: yellowgreen">
       <form @submit.prevent="sendGroupData">
         <input v-model="group.groupname" placeholder="Type into group name">
-        <button type="submit">+new group</button>
+        <button type="submit">
+          <i class="icon-font icon-smallfix icon-icon_tianjia"></i>
+        </button>
       </form>
     </div>
 
@@ -41,7 +43,6 @@
               <router-link
                 :to="{ name: 'CustomerShow', params: { id: customer.id } }"
                 >{{ customer.id }}
-                <i class="iconfont icon-more"></i>
               </router-link>
             </th>
             <td>{{ customer.person }}</td>

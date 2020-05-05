@@ -9,7 +9,9 @@
   margin-top: 10px;
   display: flex;
   justify-content: space-around;
-  border: 1px solid black;
   color: #fff;
+}
+.icon-smallfix {
+  font-size: 18px !important;
 }
 </style>

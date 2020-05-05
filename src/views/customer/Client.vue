@@ -5,8 +5,7 @@
       <span>this is a page for customer list</span>
       <router-link :to="{ name: 'CustomerCreate' }">
         <span class="btn btn-default customer_add">
-          <i class="iconfont icon-add-account mr-2"></i>
-          Add
+          <i class="iconfont icon-add-account mr-2 icon-smallfix"></i>
         </span>
       </router-link>
       <input type="text" v-model="keywords" />
@@ -28,7 +27,6 @@
               <router-link
                 :to="{ name: 'CustomerShow', params: { id: customer.id } }"
                 >{{ customer.id }}
-                <i class="iconfont icon-more"></i>
               </router-link>
             </th>
             <td>{{ customer.person }}</td>
