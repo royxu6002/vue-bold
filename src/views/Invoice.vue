@@ -3,15 +3,17 @@
     <Nav />
     <hr>
     <div class="row invoice-quotation-header">
-      <div class="mr-2"><router-link to="/invoice/create"><span class="iconfont icon-hammer1 icon-smallfix
-"></span></router-link></div>
+      <div class="mr-2">
+        <router-link to="/invoice/create">
+        Create
+</router-link></div>
       <div :class="{active: type == 'invoice'}" class="mr-2">
         <span @click="toggleType('invoice')">
-        <i class="iconfont icon-zhihangfankui icon-smallfix"></i>
+        Invoice
         </span>
       </div>
       <div :class="{active: type == 'quotation'}" class="mr-2"><span @click="toggleType('quotation')">
-        <i class="iconfont icon-survey icon-smallfix"></i>
+        Quotation
       </span>
       </div>
     </div>

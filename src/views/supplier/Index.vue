@@ -1,6 +1,11 @@
 <template>
     <div class="container supplier-index-page mt-3">
-        <h6>Supplier index page</h6> <router-link to="/supplier/create">Create</router-link>
+        <h6>Supplier index page</h6> 
+        <router-link to="/home"><i class="iconfont mr-3 icon-smallfix icon-xuanzhongshangcheng
+"></i></router-link>
+        <router-link to="/supplier/create">
+        <i class="iconfont icon-smallfix icon-hammer1"></i>
+        </router-link>
         <div>
             <table class="table">
                 <tr>

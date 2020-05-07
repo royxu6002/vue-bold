@@ -16,6 +16,12 @@ Vue.prototype.BILLFROM = billfrom;
 import beneficiary from "./api/beneficiary";
 Vue.prototype.BENEFICIARY = beneficiary;
 
+// 引入加减乘除
+import {floatAdd, floatMinus, floatMultiply, floatDivide} from "./util/calcalator";
+Vue.prototype.floatAdd = floatAdd;
+Vue.prototype.floatMinus = floatMinus;
+Vue.prototype.floatMultiply = floatMultiply;
+Vue.prototype.floatDivide = floatDivide;
 
 // 引入 icon 图标
 import "@/assets/css/icon-font/iconfont.css";

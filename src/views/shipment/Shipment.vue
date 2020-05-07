@@ -127,7 +127,7 @@
           <td>{{ shipData.eta }}</td>
           <td>
             <span @click="deleteShipment(shipData.id)">
-              <i class="iconfont icon-delete"></i
+              <i class="iconfont icon-delete icon-smallfix"></i
             ></span>
           </td>
         </tr>

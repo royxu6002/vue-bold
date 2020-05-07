@@ -195,7 +195,7 @@
       <div class="column">
         <a class="btn" @click="deleteNewItem(index)">x</a>
         <div class="ml-2">
-          <i class="iconfont icon-edit"></i>
+          <i class="iconfont icon-edit icon-smallfix"></i>
         </div>
       </div>
 

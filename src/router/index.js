@@ -187,6 +187,21 @@ const routes = [
         path: "sidebar",
         name: "Sidebar",
         component: () => import("../views/test/Sidebar.vue")
+      },
+      {
+        path: "if",
+        name: "If",
+        component: () => import("../views/test/If.vue")
+      },
+      {
+        path: "algorithm",
+        name: "Algorithm",
+        component: () => import("../views/test/Algorithm.vue")
+      },
+      {
+        path: "form",
+        name: "Form",
+        component: () => import("../views/test/Form.vue")
       }
     ]
   }
