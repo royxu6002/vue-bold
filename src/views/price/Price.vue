@@ -420,15 +420,12 @@
       </div>
     </div>
 
-    <div class="product-module" style="border-bottom: 1px solid #eee;">
+    <div class="product-module" style="border-bottom: 1px solid #eee; width: 100%; padding-bottom: 0; margin-bottom: 0;">
       <table class="table">
         <tbody>
           <tr style="background-color: #eee;">
-            <td rowspan="8">
+            <td>
               项目(定制产生的费用明细)
-              <p>
-                ¥{{productModuleCost}}
-              </p>
             </td>
             <td>品名</td>
             <td>备注</td>
@@ -437,6 +434,11 @@
           </tr>
  
           <tr v-if="productInfo.requirement.includes('colorManual')">
+            <td rowspan="7">
+              <p>
+                ¥{{productModuleCost}}
+              </p>
+            </td>
             <td>说明书
               彩色印刷：铜版纸常规90克（可定做105克128克158克）/折页/装订）
             </td>
@@ -789,9 +791,9 @@ export default {
     // 定义价格标是 0.2元/张
     priceLabelCost() {
       if(this.productInfo.requirement.includes('priceLabel')) {
-        if(this.productInfo.quantity<=3000) {
-          let i = 600;
-          return i * this.priceSystem.product.ratingLabel.quantity;
+        if(this.productInfo.quantity > 0 && this.productInfo.quantity<3000) {
+          let i = 0.2;
+          return i * this.productInfo.quantity > 150? i * this.productInfo.quantity : '150';
         }
         return "0";
       }
