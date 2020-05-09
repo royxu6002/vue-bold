@@ -73,7 +73,7 @@
               <option value="exw_tax">出厂含税</option>
               <option value="cpt_no_tax">进仓不含税</option>
               <option value="cpt_tax">进仓含税</option>
-              <option value="fob_rmn">FOB 人民币</option>
+              <option value="fob_rmb">FOB 人民币</option>
               <option value="fob_usd">FOB 美金</option>
             </select>
           </div>
@@ -968,17 +968,17 @@ export default {
         return '$'+sellingCost + ' 总支出:¥'+purchaseCost+'拿退税<--|';
       }
       // 6 if productInfo.priceTerm = 'fob_usd';
-      // if (this.productInfo.priceTerm == 'fob_usd') {
-      //   let purchaseCost = this.productInfo.price*(100+VAT.COMMODITY-this.productInfo.refundRate)/(100+VAT.COMMODITY) + Number(this.qcModuleCost) + Number(this.bankModuleCost) + Number(this.productModuleCost);
+      if (this.productInfo.priceTerm == 'fob_usd') {
+        let CURRENCY = this.priceSystem.currencyRate;
+        let otherCost = Number(this.qcModuleCost) + Number(this.bankModuleCost) + Number(this.productModuleCost/CURRENCY);
+        let purchaseCost = Number(this.productInfo.price) + Number(otherCost/CURRENCY);
 
-      //   let CURRENCY = this.priceSystem.currencyRate;
-      //   let PROFIT= this.priceSystem.profitRate;
-      //   let PROXYRATE = this.priceSystem.exportProxy.refund.chargeRate;
+        let PROFIT= this.priceSystem.profitRate;
 
-      //   let sellingCost = (purchaseCost/CURRENCY) /(1-PROFIT/100-PROXYRATE/100);
+        let sellingCost = purchaseCost /(1-PROFIT/100);
 
-      //   return '$'+sellingCost + ' 总支出:¥'+purchaseCost+'拿退税<--|';
-      // }
+        return '$'+ sellingCost;
+      }
       return "0";
     }
   },
