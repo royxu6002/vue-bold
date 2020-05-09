@@ -74,8 +74,8 @@
           <td>{{ product.order_info.product_quantity }}</td>
           <td align="right">
             {{product.order_info.currency}}{{
-              product.order_info.product_cost *
-                product.order_info.product_quantity
+              product.order_info.product_cost * 1000* 
+                product.order_info.product_quantity/1000
             }}
           </td>
         </tr>
@@ -183,7 +183,7 @@ export default {
       let price = 0;
       this.invoiceData.products.forEach(product => {
         price +=
-          product.order_info.product_cost * product.order_info.product_quantity;
+          product.order_info.product_cost * 1000*product.order_info.product_quantity/1000;
       });
       return price;
     },

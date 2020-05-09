@@ -188,7 +188,8 @@
       <div class="column-right price">
         <small>Price</small>
         <div>{{invoiceData.currency_type}}
-          {{ orderProduct.product_cost * orderProduct.product_quantity || "" }}
+          <!-- 解决浮点计算错误的最简单方式 -->
+          {{ orderProduct.product_cost * 1000 * orderProduct.product_quantity /1000|| "" }}
         </div>
       </div>
 
@@ -452,7 +453,7 @@ export default {
     subtotal() {
       let price = 0;
       this.invoiceData.order_info.forEach(orderProduct => {
-        price += orderProduct.product_cost * orderProduct.product_quantity;
+        price += orderProduct.product_cost * 1000 * orderProduct.product_quantity/1000;
       });
       return price;
     },
