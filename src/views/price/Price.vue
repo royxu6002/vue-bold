@@ -885,7 +885,7 @@ export default {
     FOBCOST() {
       // 1 if productInfo.priceTerm == 'exw_no_tax';
       // 直接算出来拿退税和不拿退税的价格;
-      if(this.productInfo.priceTerm == 'exw_no_tax' && this.productInfo.totalSpace>0 && this.productInfo.factoryTaxRate>0) {
+      if(this.productInfo.priceTerm == 'exw_no_tax' && this.productInfo.totalSpace>0 && this.productInfo.factoryTaxRate>0 && this.productInfo.refundRate>0) {
         //拿退税, 
         let purchaseCost = this.productInfo.price*(1+this.productInfo.factoryTaxRate/100)*(100+VAT.COMMODITY-this.productInfo.refundRate)/(100+VAT.COMMODITY) + Number(this.qcModuleCost) + Number(this.shipmentModuleCost) + Number(this.cfsModuleCost) + Number(this.bankModuleCost) + Number(this.productModuleCost);
 
@@ -912,7 +912,7 @@ export default {
         return '$'+sellingCost + ' 总支出:¥'+purchaseCost+'拿退税<--||-->不拿$' + sellingCost2+' 总支出:¥'+purchaseCost2;
       }
       // 2 if productInfo.priceTerm = 'exw_tax';
-      if (this.productInfo.priceTerm == 'exw_tax' && this.productInfo.totalSpace>0) {
+      if (this.productInfo.priceTerm == 'exw_tax' && this.productInfo.totalSpace>0 &&this.productInfo.refundRate>0) {
         let purchaseCost = this.productInfo.price*(100+VAT.COMMODITY-this.productInfo.refundRate)/(100+VAT.COMMODITY) + Number(this.qcModuleCost) + Number(this.shipmentModuleCost) + Number(this.cfsModuleCost) + Number(this.bankModuleCost) + Number(this.productModuleCost);
 
         let CURRENCY = this.priceSystem.currencyRate;
@@ -924,7 +924,7 @@ export default {
         return '$'+sellingCost + ' 总支出:¥'+purchaseCost+'拿退税<--|';
       }
       // 3 if productInfo.priceTerm = 'cpt_no_tax';
-      if (this.productInfo.priceTerm == 'cpt_no_tax' && this.productInfo.totalSpace>0 && this.productInfo.factoryTaxRate>0) {
+      if (this.productInfo.priceTerm == 'cpt_no_tax' && this.productInfo.totalSpace>0 && this.productInfo.factoryTaxRate>0 &&this.productInfo.refundRate>0) {
         let purchaseCost = this.productInfo.price*(1+this.productInfo.factoryTaxRate/100)*(100+VAT.COMMODITY-this.productInfo.refundRate)/(100+VAT.COMMODITY) + Number(this.qcModuleCost) + Number(this.cfsModuleCost) + Number(this.bankModuleCost) + Number(this.productModuleCost);
 
         let CURRENCY = this.priceSystem.currencyRate;
@@ -943,7 +943,7 @@ export default {
       }
 
       // 4 if productInfo.priceTerm = 'cpt_tax';
-      if (this.productInfo.priceTerm == 'cpt_tax' && this.productInfo.totalSpace>0) {
+      if (this.productInfo.priceTerm == 'cpt_tax' && this.productInfo.totalSpace>0&&this.productInfo.refundRate>0) {
         let purchaseCost = this.productInfo.price*(100+VAT.COMMODITY-this.productInfo.refundRate)/(100+VAT.COMMODITY) + Number(this.qcModuleCost) + Number(this.cfsModuleCost) + Number(this.bankModuleCost) + Number(this.productModuleCost);
 
         let CURRENCY = this.priceSystem.currencyRate;
@@ -956,7 +956,7 @@ export default {
       }
       // 5 if productInfo.priceTerm = 'fob_rmb';
       // 产品含税含操作费; 
-      if (this.productInfo.priceTerm == 'fob_rmb') {
+      if (this.productInfo.priceTerm == 'fob_rmb' &&this.productInfo.refundRate>0) {
         let purchaseCost = this.productInfo.price*(100+VAT.COMMODITY-this.productInfo.refundRate)/(100+VAT.COMMODITY) + Number(this.qcModuleCost) + Number(this.bankModuleCost) + Number(this.productModuleCost);
 
         let CURRENCY = this.priceSystem.currencyRate;
@@ -970,7 +970,7 @@ export default {
       // 6 if productInfo.priceTerm = 'fob_usd';
       if (this.productInfo.priceTerm == 'fob_usd') {
         let CURRENCY = this.priceSystem.currencyRate;
-        let otherCost = Number(this.qcModuleCost) + Number(this.bankModuleCost) + Number(this.productModuleCost/CURRENCY);
+        let otherCost = Number(this.qcModuleCost) + Number(this.bankModuleCost) + Number(this.productModuleCost);
         let purchaseCost = Number(this.productInfo.price) + Number(otherCost/CURRENCY);
 
         let PROFIT= this.priceSystem.profitRate;
