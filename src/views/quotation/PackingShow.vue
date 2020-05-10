@@ -69,7 +69,7 @@
           <td>{{product.order_info.currency}}{{ product.order_info.product_cost }}</td>
           <td align="right">
             {{product.order_info.currency}}{{
-              product.order_info.product_cost * 1000* 
+              product.order_info.product_cost * 1000 * 
                 product.order_info.product_quantity/1000
             }}
           </td>
@@ -113,11 +113,12 @@
         <tr>
           <td valign="top" style="font-weight:bold;">PACKING:</td>
           <td colspan="3" valign="top">
-            <div v-for="(product, index) in invoiceData.products" :key="index">
+            <!-- 循环出唛头信息 -->
+            <!-- <div v-for="(product, index) in invoiceData.products" :key="index">
               <div>
                 SHIPPING MARK: {{ product.order_info.shipping_mark }}
               </div>
-            </div>
+            </div> -->
 
             <div>
               TOTAL {{ cartons }} CARTONS, {{ cbm }} CUBIC METERS,

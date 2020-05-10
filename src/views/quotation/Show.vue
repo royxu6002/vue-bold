@@ -69,7 +69,7 @@
           <td>{{ product.order_info.product_quantity }}</td>
           <td align="right">
             {{product.order_info.currency}}{{
-              product.order_info.product_cost * 1000*
+              product.order_info.product_cost * 1000 *
                 product.order_info.product_quantity/1000
             }}
           </td>
@@ -220,7 +220,7 @@ export default {
   }
 };
 </script>
-<style>
+<style scoped>
 .quotation-title {
   display: flex;
   align-content: space-between;
@@ -228,7 +228,7 @@ export default {
 th,
 td {
   /* margin: 0; */
-  padding: 10px 0;
+  padding: 10px;
 }
 .th-right {
   text-align: right !important;
