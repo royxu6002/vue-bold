@@ -55,7 +55,10 @@
           v-for="(product, index) in invoiceData.products"
           :key="index"
         >
-          <td>{{ product.product_name }}</td>
+          <td>
+            {{ product.product_name }}
+            <div>{{product.order_info.product_custom}}</div>
+          </td>
           <td>
             <img :src="product.imgs[0]" alt="" />
           </td>

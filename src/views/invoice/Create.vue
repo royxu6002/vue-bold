@@ -136,6 +136,12 @@
         </select>
       </div>
 
+      <div class="column custom">
+        <small>Custom</small>
+        <textarea v-model="orderProduct.product_custom" placeholder="Additional info"
+          class="form-control"></textarea>
+      </div>
+
       <div class="column money">
         <small>currency</small>
         <select class="form-control" v-model="orderProduct.currency" required>
@@ -323,6 +329,7 @@ export default {
         order_info: [
           {
             product_id: "",
+            product_custom: "",
             currency: "",
             product_cost: "",
             product_quantity: "",
@@ -405,6 +412,7 @@ export default {
     addNewItem() {
       this.invoiceData.order_info.push({
         product_id: "",
+        product_custom: "",
         currency: "",
         product_cost: "",
         product_quantity: "",
@@ -502,7 +510,10 @@ export default {
   margin: 10px;
   padding: 10px;
   .item {
-    width: 48%;
+    width: 28%;
+  }
+  .custom {
+    width: 20%;
   }
   .money {
     width: 4%;

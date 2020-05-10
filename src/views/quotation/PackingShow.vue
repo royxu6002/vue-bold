@@ -1,17 +1,12 @@
 <template>
-  <div class="invoice_create container mt-3">
-    <div class="invoice-brief">
+  <div class="invoice_create mt-3">
+    <div class="invoice-brief row">
       <div class="left">
         <small>Quotation #: {{ invoiceData.id }}</small>
         <div><small>Date issued: {{ invoiceData.issued_date }}</small></div>
         <div><small>Expiry Date: {{ invoiceData.due_date }}</small></div>
       </div>
-      <div class="right">
-        <div class="invoice-value">QUOTATION</div>
-      </div>
-    </div>
-    <hr>
-    <div class="invoice-header">
+
       <div class="invoice-header-left">
         <small>TO</small>
         <h6 class="mt-2">{{ invoiceData.client.company }}</h6>
@@ -19,6 +14,7 @@
         <div>{{ invoiceData.client.tel }}</div>
         <div>{{ invoiceData.client.email }}</div>
       </div>
+
       <div class="invoice-header-right">
         <small>FROM</small>
         <h6 class="mt-2">{{BILLFROM.company}}</h6>
@@ -28,50 +24,49 @@
         <div>{{BILLFROM.phone}}</div>
         <div>{{BILLFROM.email}}</div>
       </div>
+
     </div>
 
-    <div class="row invoice-table mt-3">
-      <table
-        valign="top"
-        cellspacing="10px 0"
-        cellpadding="10px 0"
-        width="100%"
-        style="border-collapse:collapse"
-      >
-        <tr style="border-bottom: 1px solid #171218">
+    <div class="invoice-table mt-3">
+      <table class="table" style="cellpadding:5px;">
+        <tr>
           <th>
-            ART.NO.
+            ART.DESCRIPTION
           </th>
           <th>IMAGE</th>
-          <th style="width: 40%">
-            DESCRIPTION
-          </th>
+          <th>REMARK</th>
+          <th>QTY</th>
           <th>Package</th>
           <th>COST</th>
-          <th>QTY</th>
           <th class="th-right">PRICE</th>
         </tr>
+
         <tr
-          style="border-bottom: 1px solid #ccc"
           v-for="(product, index) in invoiceData.products"
           :key="index"
         >
-          <td>{{ product.product_name }}</td>
+          <td>{{ product.product_name }}
+            <span v-html="product.product_brief_intro"></span>
+          </td>
           <td>
             <img :src="product.imgs[0]" alt="" />
           </td>
           <td>
-            <span v-html="product.product_brief_intro"></span>
+            {{ product.order_info.product_custom }}
             </td>
+          
+          <td>{{ product.order_info.product_quantity }}</td>
+
           <!-- 包装信息 -->
           <td>
-              {{ product.order_info.product_number_per_carton }}PCS/CARTON<br>
-              NO.:  - {{ Number(product.order_info.cartons) }} CARTONS<br>
-              {{ product.order_info.cbm }} CBM<br>
-              {{ product.order_info.gross_weight }} KGS
+              TOTAL 
+              {{ Number(product.order_info.cartons) }} CARTONS,
+              {{ product.order_info.cbm }} CBM, 
+              {{ product.order_info.gross_weight }} KGS<br>
+              {{ product.order_info.product_number_per_carton }}PCS/CARTON OF
+              {{ packageDetail(index, product.order_info.product_number_per_carton) }}
           </td>
           <td>{{product.order_info.currency}}{{ product.order_info.product_cost }}</td>
-          <td>{{ product.order_info.product_quantity }}</td>
           <td align="right">
             {{product.order_info.currency}}{{
               product.order_info.product_cost * 1000* 
@@ -81,15 +76,15 @@
         </tr>
 
         <tr style="font-weight: 500">
-          <td colspan="4" rowspan="6"></td>
-          <td colspan="2" align="left">Subtotal</td>
+          <td colspan="6" align="left">Subtotal</td>
           <td align="right">{{invoiceData.currency_type}}{{ subtotal }}</td>
         </tr>
+
         <tr
           style="font-weight: 500;border-bottom: 1px solid #ccc;border-top:1px solid #ccc"
           v-if="invoiceData.shipment_cost"
         >
-          <td colspan="2" align="left">
+          <td colspan="6" align="left">
             Shipping Cost
           </td>
           <td align="right">{{invoiceData.currency_type}}{{ invoiceData.shipment_cost }}</td>
@@ -98,26 +93,30 @@
           style="font-weight: 500;border-bottom: 1px solid #ccc;border-top:1px solid #ccc"
           v-if="invoiceData.discount"
         >
-          <td colspan="2" align="left">
+          <td colspan="6" align="left">
             Discount
           </td>
           <td align="right">{{invoiceData.currency_type}}{{ invoiceData.discount }}</td>
         </tr>
+
         <tr style="font-weight: 500;border-bottom: 1px solid #ccc">
-          <td colspan="2" align="left">
+          <td colspan="6" align="left">
             Total
           </td>
           <td align="right">{{invoiceData.currency_type}}{{ invoiceData.total }}</td>
         </tr>
       </table>
     </div>
+
     <div class="invoice-terms mt-3">
       <table align="center" cellpadding="10px">
         <tr>
           <td valign="top" style="font-weight:bold;">PACKING:</td>
           <td colspan="3" valign="top">
             <div v-for="(product, index) in invoiceData.products" :key="index">
-              <div>SHIPPING MARK: {{ product.order_info.shipping_mark }}</div>
+              <div>
+                SHIPPING MARK: {{ product.order_info.shipping_mark }}
+              </div>
             </div>
 
             <div>
@@ -217,41 +216,41 @@ export default {
         gross += Number(p.order_info.gross_weight);
       });
       return gross;
+    },
+    packageDetail() {
+      return (index, id) => {
+        let i = this.invoiceData.products[index].packages.filter(p => p.product_package_item_num == id);
+        // return i[0];
+        return i[0].product_package_length+'x'+i[0].product_package_width+'x'+i[0].product_package_height+'CM';
+      }
     }
   }
 };
 </script>
-<style>
-.quotation-title {
-  display: flex;
-  align-content: space-between;
+<style scoped>
+.invoice_create {
+  margin: 0;
+  padding: 0 10px;
 }
-th,
-td {
+th, td {
   /* margin: 0; */
-  padding: 10px 0;
+  padding: 10px;
 }
 .th-right {
   text-align: right !important;
 }
-.invoice-header {
-  display: flex;
-  justify-content: space-between;
-}
+
 .invoice-header-right {
   text-align: right;
 }
 .invoice-brief {
   display: flex;
   justify-content: space-between;
+  padding: 10px;
 }
 .invoice-table td img {
   max-width: 120px;
   max-height: 120px;
-}
-.invoice-value {
-  font-size: 20px;
-  font-weight: bold;
 }
 .invoice-table-tr-top {
   border-top: 1px solid #ccc;

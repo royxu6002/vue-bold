@@ -49,6 +49,7 @@
           <th style="width: 40%">
             ART.NO. & DESCRIPTION
           </th>
+          <th>REMARK</th>
           <th>HS CODE</th>
           <th>COST</th>
           <th>QTY</th>
@@ -63,6 +64,7 @@
             <b>{{ product.product_name }}</b>
             <span v-html="product.product_brief_intro"></span>
           </td>
+          <td>{{product.order_info.product_custom}}</td>
           <td>{{ product.hs_code }}</td>
           <td>{{product.order_info.currency}}{{ product.order_info.product_cost }}</td>
           <td>{{ product.order_info.product_quantity }}</td>
@@ -75,7 +77,7 @@
         </tr>
 
         <tr style="font-weight: 500">
-          <td colspan="2" rowspan="6">
+          <td colspan="3" rowspan="6">
             <br>
             <br>
             <div>

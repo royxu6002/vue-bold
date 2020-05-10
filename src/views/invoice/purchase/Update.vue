@@ -26,6 +26,13 @@
                   </div>
 
                   <div class="two-column">
+                    <small>定制: </small>
+                    <span>
+                      {{ product.order_info.product_custom}}
+                    </span>
+                  </div>
+
+                  <div class="two-column">
                     <small>外销价: </small>
                     <span>
                       {{ product.order_info.currency}}{{ product.order_info.product_cost }}
