@@ -57,10 +57,10 @@
                   class="mr-2"
                   :to="{name: 'TransactionEdit', params: {id: transaction.id}}"
                 >
-                  <i class="iconfont icon-edit"></i>
+                  <i class="iconfont icon-edit icon-smallfix"></i>
                 </router-link>
                 <span @click="deleteTransaction(transaction.id)">
-                  <i class="iconfont icon-delete"></i>
+                  <i class="iconfont icon-delete icon-smallfix"></i>
                 </span>
               </td>
             </tr>

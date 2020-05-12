@@ -196,7 +196,7 @@
         <small>Price</small>
         <div>
           <span>{{ orderProduct.order_info.currency }}</span>
-          {{ orderProduct.order_info.product_cost * 1000* orderProduct.order_info.product_quantity/1000 || "" }}
+          {{ orderProduct.order_info.product_cost * Math.pow(10,10)* orderProduct.order_info.product_quantity/Math.pow(10,10) || "" }}
         </div>
       </div>
 
@@ -433,7 +433,7 @@ export default {
     subtotal() {
       let price = 0;
       this.invoiceData.products.forEach(orderProduct => {
-        price += orderProduct.order_info.product_cost * 1000 * orderProduct.order_info.product_quantity/1000;
+        price += orderProduct.order_info.product_cost * Math.pow(10,10) * orderProduct.order_info.product_quantity/Math.pow(10,10);
       });
       return price;
     },

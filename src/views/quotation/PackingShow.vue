@@ -1,12 +1,17 @@
 <template>
-  <div class="invoice_create mt-3">
-    <div class="invoice-brief row">
+  <div class="invoice_create container mt-3">
+    <div class="invoice-brief">
       <div class="left">
         <small>Quotation #: {{ invoiceData.id }}</small>
         <div><small>Date issued: {{ invoiceData.issued_date }}</small></div>
         <div><small>Expiry Date: {{ invoiceData.due_date }}</small></div>
       </div>
-
+      <div class="right">
+        <div class="invoice-value">QUOTATION</div>
+      </div>
+    </div>
+    <hr>
+    <div class="invoice-header">
       <div class="invoice-header-left">
         <small>TO</small>
         <h6 class="mt-2">{{ invoiceData.client.company }}</h6>
@@ -14,29 +19,29 @@
         <div>{{ invoiceData.client.tel }}</div>
         <div>{{ invoiceData.client.email }}</div>
       </div>
-
       <div class="invoice-header-right">
         <small>FROM</small>
-        <h6 class="mt-2">{{BILLFROM.company}}</h6>
+        <h6 class="mt-2">{{ BILLFROM.company }}</h6>
         <div class="align-right">
-          {{BILLFROM.address}}
+          {{ BILLFROM.address }}
         </div>
-        <div>{{BILLFROM.phone}}</div>
-        <div>{{BILLFROM.email}}</div>
+        <div>{{ BILLFROM.phone }}</div>
+        <div>{{ BILLFROM.email }}</div>
       </div>
-
     </div>
 
     <div class="invoice-table mt-3">
       <table class="table" style="cellpadding:5px;">
         <tr>
           <th>
-            ART.DESCRIPTION
+            ART.
+          </th>
+          <th>
+            DESCRIPTION
           </th>
           <th>IMAGE</th>
-          <th>REMARK</th>
+          <th>PACKAGE</th>
           <th>QTY</th>
-          <th>Package</th>
           <th>COST</th>
           <th class="th-right">PRICE</th>
         </tr>
@@ -46,16 +51,16 @@
           :key="index"
         >
           <td>{{ product.product_name }}
+            <div>
+              {{ product.order_info.product_custom }}
+            </div>
+          </td>
+          <td>
             <span v-html="product.product_brief_intro"></span>
           </td>
           <td>
             <img :src="product.imgs[0]" alt="" />
           </td>
-          <td>
-            {{ product.order_info.product_custom }}
-            </td>
-          
-          <td>{{ product.order_info.product_quantity }}</td>
 
           <!-- 包装信息 -->
           <td>
@@ -66,11 +71,15 @@
               {{ product.order_info.product_number_per_carton }}PCS/CARTON OF
               {{ packageDetail(index, product.order_info.product_number_per_carton) }}
           </td>
+          
+          <td>{{ product.order_info.product_quantity }}</td>
+
+          
           <td>{{product.order_info.currency}}{{ product.order_info.product_cost }}</td>
           <td align="right">
             {{product.order_info.currency}}{{
-              product.order_info.product_cost * 1000 * 
-                product.order_info.product_quantity/1000
+              product.order_info.product_cost * Math.pow(10,10) * 
+                product.order_info.product_quantity/Math.pow(10,10)
             }}
           </td>
         </tr>
@@ -183,7 +192,7 @@ export default {
       let price = 0;
       this.invoiceData.products.forEach(product => {
         price +=
-          product.order_info.product_cost * 1000*product.order_info.product_quantity/1000;
+          product.order_info.product_cost * Math.pow(10,10) *product.order_info.product_quantity/ Math.pow(10,10);
       });
       return price;
     },
@@ -229,9 +238,9 @@ export default {
 };
 </script>
 <style scoped>
-.invoice_create {
-  margin: 0;
-  padding: 0 10px;
+.invoice-header {
+  display: flex;
+  justify-content: space-between;
 }
 th, td {
   /* margin: 0; */

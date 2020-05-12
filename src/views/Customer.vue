@@ -22,7 +22,7 @@
       <form @submit.prevent="sendGroupData">
         <input v-model="group.groupname" placeholder="Type into group name">
         <button type="submit">
-          <i class="icon-font icon-smallfix icon-icon_tianjia"></i>
+          <i class="iconfont icon-smallfix icon-icon_tianjia"></i>
         </button>
       </form>
     </div>
