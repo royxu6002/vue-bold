@@ -6,7 +6,9 @@
       <div class="mr-2">
         <router-link to="/invoice/create">
         Create
-</router-link></div>
+        </router-link>
+      </div>
+      <span @click="resetInvoicesData()" class="mr-2">All</span>
       <div :class="{active: type == 'invoice'}" class="mr-2">
         <span @click="toggleType('invoice')">
         Invoice
@@ -31,7 +33,7 @@
           <th>OPER.</th>
         </tr>
         <!-- 使用计算属性, 传递参数拿到过滤的数据 -->
-        <tr v-for="(invoice, index) in filteredInvoicesData(type)" :key="index">
+        <tr v-for="(invoice, index) in filteredBy(type)" :key="index">
           <td>
             <!-- 创建一个 Quotation 页面 -->
             <router-link v-if="type == 'invoice'"
@@ -49,7 +51,6 @@
             <router-link v-if="type == 'invoice'" :to="{name: 'SampleInvoiceShow', params: {id: invoice.id}}">
               <i class="iconfont icon-invoice mr-3 icon-smallfix"></i>
             </router-link>
-            
 
             <router-link v-else
               :to="{ name: 'QuotationShow', params: { id: invoice.id } }"
@@ -105,8 +106,12 @@
           <td>
              <!-- 发票编辑 -->
               <router-link :to="{name: 'InvoiceEdit', params: {id: invoice.id}}">
-                <i class="iconfont icon-libra icon-smallfix"></i>
+                <i class="iconfont icon-libra icon-smallfix mr-2"></i>
               </router-link>
+                <a class="iconfont icon-smallfix icon-shaixuan1 mr-2" @click="filteredById(invoice.client.id)"></a>
+              <a class="iconfont icon-smallfix icon-fuzhi" @click="replicateInvoice(invoice.id)"></a>
+              
+
           </td>
         </tr>
       </table>
@@ -137,6 +142,23 @@ export default {
     },
     toggleType(type) {
       this.type = type;
+    },
+    replicateInvoice(id) {
+      if(window.confirm('are you sure to reproduce a new invoice with these data?')) {
+        this.axios.get(this.GLOBAL.baseUrl+"/invoice/"+id+"/duplicate")
+        .then(res => {
+          alert(res.data.msg);
+          this.$router.go(0);
+        })
+        .catch(err => alert(err))
+      }
+    },
+    filteredById(id) {
+      let i = this.invoicesData.filter(invoice => invoice.client.id == id);
+      this.invoicesData = i;
+    },
+    resetInvoicesData() {
+      this.getInvoicesData();
     }
   },
   created() {
@@ -152,7 +174,7 @@ export default {
         return invoice.total - b;
       };
     },
-    filteredInvoicesData() {
+    filteredBy() {
       return (type) => {
         return this.invoicesData.filter(invoice => invoice.type == type );
       }
@@ -160,7 +182,7 @@ export default {
   }
 };
 </script>
-<style>
+<style scoped>
 .nav-header {
   display: flex;
   align-content: space-around;
