@@ -7,7 +7,7 @@
     <div class="code-serial">
       <div>编号: </div>
       <div>
-        <small>CE#{{$route.params.id}}-</small>
+        <small>CLE#{{$route.params.id}}-</small>
         <small @click="hiddenData">{{ids.length}}-</small>
         <span v-for="(n, ind) in ids" 
         :key="ind" @click="selectId(n)" 
@@ -16,10 +16,10 @@
         </span>
       </div>
     </div>
-    <div>付款方式: </div>
   </div>
-  <div class="purchase-supplier-brief">
-      <div>供货(甲方):
+
+  <div class="purchase-supplier-brief mt-3">
+      <div>甲方(供货商):
         <div v-for="(su, ind) in settleSupplier()" :key="ind">
           <div>{{su.name}}</div>
           <div>{{su.address}}</div>
@@ -30,7 +30,7 @@
         
       </div>
       <div>
-        销货(乙方): 
+        乙方(销货商): 
         <div v-if="selectedId!=''">
           <div>{{BILLFROM.company}} </div>
           <div>{{BILLFROM.address}}</div>
@@ -40,11 +40,13 @@
       </div> 
   </div>
 
-  <div>
+
+  <div class="mt-3">
+    甲乙双方经协商达成以下协议:
     <table class="table">
       <tr>
-        <th>型号, 图片</th>
-        <th>规格描述</th>
+        <th>型号</th>
+        <th>规格</th>
         <th>数量</th>
         <th>单价</th>
         <th>其他要求</th>
@@ -72,29 +74,31 @@
         </td>
         <td>{{purchase.other_requirement}}</td>
         <td>
+          {{purchase.price *Math.pow(10, 10) *purchase.quantity /Math.pow(10, 10)}}
         </td>      
       </tr>
      <tr>
        <td colspan="5">总计:</td>
-       <td>message</td>
+       <td>{{total}}</td>
      </tr>
     </table>
   </div>
 
   <div class="purchase-note">
-
+    <div class="mb-3">备注: </div>
+    <div>甲方收款资料:</div>
   </div>
 
   <div class="purchase-terms">
-    <div>相关注意事宜(丰富下条款)
+    <div>相关注意事宜:
 
     </div>
-    <div>一.甲乙双方在此订购合同盖章互传,确认订单。甲方安排一台产前样供乙方确认生产。</div> 
+    <div>一.甲乙双方在此供销合同盖章互传,确认订单。甲方安排一台产前样供乙方确认生产。</div> 
     <div>
       二.交货方式:货物在永康/东莞完成交付，乙方安排快递/物流取货。 
     </div>
     <div>
-      三.甲方必须按双方协商日期交货，收到定金后20个工作日。逾期超过7天后，每天逾期将有0.5%的罚款。逾期超过15天，乙方有权 取消订单，并索求所付定金和相应损失。
+      三.甲方必须按双方协商日期于{{purchasesData.due_date}}之前交货,逾期超过7天后,每天逾期将有0.5%的罚款,逾期超过15天，乙方有权取消订单，并索求所付定金和相应损失。
     </div>
     <div>
       四.甲方必须保证所有产品符合国家规定和不违反各项法规。 
@@ -111,6 +115,17 @@
     <div>
       八.本合同经双方签定盖章之日起生效一式两份，甲乙方各执一份复印件原件同样具有同等法律效用。
     </div>
+    <div style="display: flex; justify-content: space-around;" class="mt-5">
+      <div>
+        <p>甲方经手人签字:_________________</p>
+        <p class="mt-5">盖章</p>
+      </div>
+      <div>
+        <p>乙方经手人签字:_________________</p>
+        <p class="mt-5">盖章</p>
+      </div>
+    </div>
+    <div>温馨提示: 请签字回传确认订单.</div>
   </div>
 
 </div>
@@ -174,6 +189,17 @@ export default {
       return () => {
         return this.suppliersData.filter(d => d.id == this.selectedId);
       };
+    },
+    total() {
+      let i = 0;
+      if(this.filteredBy().length>0) {
+        this.filteredBy().forEach(purchase => {
+          i+= purchase.price *Math.pow(10, 10) *purchase.quantity /Math.pow(10, 10);
+        });
+        return i;
+      } 
+      return 0;
+      
     }
   },
   filters: {
@@ -189,6 +215,9 @@ export default {
   display: flex;
   justify-content: space-between;
 }
+.purchase-note{
+  height: 150px;
+}
 .active {
   color: white !important;
   background-color: black;
@@ -202,5 +231,8 @@ export default {
   border: 1px solid #ccc;
   display: flex;
   justify-content: space-between;
+}
+.table td, .table th {
+    vertical-align: middle !important;
 }
 </style>
