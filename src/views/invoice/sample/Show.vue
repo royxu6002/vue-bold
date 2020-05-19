@@ -70,8 +70,8 @@
           <td>{{ product.order_info.product_quantity }}</td>
           <td align="right">
             {{product.order_info.currency}}{{
-              product.order_info.product_cost * Math.pow(10,10) *
-                product.order_info.product_quantity /Math.pow(10,10)
+              product.order_info.product_cost *
+                product.order_info.product_quantity  * Math.pow(10,10)/Math.pow(10,10)
             }}
           </td>
         </tr>
@@ -178,7 +178,7 @@ export default {
     subtotal() {
       let price = 0;
       this.invoiceData.products.forEach(product => {
-        price += product.order_info.product_cost * Math.pow(10,10)* product.order_info.product_quantity /Math.pow(10,10);
+        price += product.order_info.product_cost * product.order_info.product_quantity* Math.pow(10,10) /Math.pow(10,10);
       });
       return price;
     },

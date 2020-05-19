@@ -74,7 +74,7 @@
         </td>
         <td>{{purchase.other_requirement}}</td>
         <td>
-          {{purchase.price *Math.pow(10, 10) *purchase.quantity /Math.pow(10, 10)}}
+          {{purchase.price  *purchase.quantity *Math.pow(10, 10)/Math.pow(10, 10)}}
         </td>      
       </tr>
      <tr>
@@ -194,7 +194,7 @@ export default {
       let i = 0;
       if(this.filteredBy().length>0) {
         this.filteredBy().forEach(purchase => {
-          i+= purchase.price *Math.pow(10, 10) *purchase.quantity /Math.pow(10, 10);
+          i+= purchase.price  *purchase.quantity *Math.pow(10, 10)/Math.pow(10, 10);
         });
         return i;
       } 
