@@ -72,9 +72,7 @@
           <td>{{ product.order_info.currency }}{{ product.order_info.product_cost }}</td>
           <td>{{ product.order_info.product_quantity }}</td>
           <td align="right">
-            {{ product.order_info.currency }}{{
-              product.order_info.product_cost *product.order_info.product_quantity *Math.pow(10,10) /Math.pow(10,10)
-            }}
+            {{ product.order_info.currency }}{{ multiply(product.order_info.product_quantity, product.order_info.product_cost) }}
           </td>
         </tr>
 
@@ -307,10 +305,17 @@ export default {
     this.getInvoiceData();
   },
   computed: {
+    multiply() {
+      return (a, b) => {
+        let x = new this.BIGNUMBER(a);
+        return x.multipliedBy(b);
+      }
+    },
     subtotal() {
       let price = 0;
       this.invoiceData.products.forEach(product => {
-        price += product.order_info.product_cost *product.order_info.product_quantity* Math.pow(10,10)/Math.pow(10,10);
+        let x = new this.BIGNUMBER(product.order_info.product_cost);
+        price += Number(x.multipliedBy(product.order_info.product_quantity));
       });
       return price;
     },

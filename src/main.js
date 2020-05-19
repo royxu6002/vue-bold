@@ -6,6 +6,10 @@ import App from "./App.vue";
 import router from "./router";
 import store from "./store";
 
+// 引入 bignumber.js 来更正运算;
+import bigNumber from "bignumber.js";
+Vue.prototype.BIGNUMBER = bigNumber;
+
 // 引入全局 api
 import _global from "./api/global_variables";
 Vue.prototype.GLOBAL = _global;
@@ -15,13 +19,6 @@ import billfrom from "./api/bill";
 Vue.prototype.BILLFROM = billfrom;
 import beneficiary from "./api/beneficiary";
 Vue.prototype.BENEFICIARY = beneficiary;
-
-// 引入加减乘除
-import {floatAdd, floatMinus, floatMultiply, floatDivide} from "./util/calcalator";
-Vue.prototype.floatAdd = floatAdd;
-Vue.prototype.floatMinus = floatMinus;
-Vue.prototype.floatMultiply = floatMultiply;
-Vue.prototype.floatDivide = floatDivide;
 
 // 引入 icon 图标
 import "@/assets/css/icon-font/iconfont.css";

@@ -195,7 +195,7 @@
         <small>Price</small>
         <div>{{invoiceData.currency_type}}
           <!-- 解决浮点计算错误的最简单方式 -->
-          {{ orderProduct.product_cost * orderProduct.product_quantity * Math.pow(10,10) /Math.pow(10,10)|| "" }}
+          {{ multiply(orderProduct.product_cost, orderProduct.product_quantity) ||"" }}
         </div>
       </div>
 
@@ -458,10 +458,17 @@ export default {
     this.getCustomersData();
   },
   computed: {
+    multiply() {
+      return (a, b) => {
+        let x = new this.BIGNUMBER(a);
+        return x.multipliedBy(b);
+      }
+    },
     subtotal() {
       let price = 0;
       this.invoiceData.order_info.forEach(orderProduct => {
-        price += orderProduct.product_cost * orderProduct.product_quantity* Math.pow(10,10) /Math.pow(10,10);
+        let x = new this.BIGNUMBER(orderProduct.product_cost);
+        price += Number(x.multipliedBy(orderProduct.product_quantity));
       });
       return price;
     },

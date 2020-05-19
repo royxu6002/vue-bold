@@ -74,7 +74,7 @@
         </td>
         <td>{{purchase.other_requirement}}</td>
         <td>
-          {{purchase.price  *purchase.quantity *Math.pow(10, 10)/Math.pow(10, 10)}}
+          {{multiply(purchase.price, purchase.quantity)}}
         </td>      
       </tr>
      <tr>
@@ -173,6 +173,12 @@ export default {
       this.getSuppliersData();
   },
   computed: {
+    multiply() {
+      return (a, b) => {
+        let x = new this.BIGNUMBER(a);
+        return x.multipliedBy(b);
+      }
+    },
     filteredBy() {
       return () => {
         let data = this.purchasesData.purchase_info;
@@ -194,7 +200,8 @@ export default {
       let i = 0;
       if(this.filteredBy().length>0) {
         this.filteredBy().forEach(purchase => {
-          i+= purchase.price  *purchase.quantity *Math.pow(10, 10)/Math.pow(10, 10);
+          let x = new this.BIGNUMBER(purchase.price);
+          i += Number(x.multipliedBy(purchase.quantity));
         });
         return i;
       } 
