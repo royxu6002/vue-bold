@@ -85,7 +85,7 @@
             <small> Please kindly remit the payment to following beneficiary's account:</small>
             <div v-if="invoiceData.payment_term == 'Paypal'">
               <div>Paypal account:</div>
-              <div>BENEFICIARY.PUBLIC.PAYPAL.EMAIL</div>
+              <div>{{BENEFICIARY.PUBLIC.PAYPAL.EMAIL}}</div>
             </div>
             <div v-if="invoiceData.currency_type == '¥'">
               <div>{{BENEFICIARY.PRIVATE.EVERBRIGHTBANK.CNNAME}}</div>
