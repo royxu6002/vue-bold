@@ -22,7 +22,7 @@ export default {
   name: "ToDoHeader",
   data() {
     return {
-      toDoItem: "fff"
+      toDoItem: ""
     };
   },
   methods: {

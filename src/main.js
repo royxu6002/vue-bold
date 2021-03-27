@@ -10,7 +10,7 @@ import store from "./store";
 import bigNumber from "bignumber.js";
 Vue.prototype.BIGNUMBER = bigNumber;
 
-// 引入全局 api
+// 引入 baseUrl, 开发环境使用的 developmentUrl, webpack 打包时候, 使用的 productionUrl;
 import _global from "./api/global_variables";
 Vue.prototype.GLOBAL = _global;
 

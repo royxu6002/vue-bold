@@ -1,8 +1,8 @@
-// 本地开发环境
-// const baseUrl = "http://iot.test/api/v1";
+// 定义一个 baseUrl, 处理 api 接口源头;
 
 // 生产环境解决跨域问题, 
-// const baseUrl = "/apis/api/v1";
+// * 服务器件中 nginx 将 /apis 解析为 comlibra.com;
+// * let productionUrl = "/apis/api/v1"; 
 
 // 直接用 NODE_ENV 判断是生产环境还是开发环境, 避免人工切换;
 let productionUrl = "/apis/api/v1";
