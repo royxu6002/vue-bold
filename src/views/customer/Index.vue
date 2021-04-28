@@ -1,14 +1,17 @@
 <template>
-  <div class="customers mt-3">
+  <div class="customers mt-3 container-fluid">
     <Nav />
     <div class="customers_header">
       <span class="mr-2" @click="showAddGroupInput">+group</span>
       <small @click="getCustomersData">All</small>
-      <small class="mr-2" 
+      <small
+        class="mr-2"
         v-for="(data, index) in groupData"
-        :class="{'active': className == data.name}"
-        :key="index" @click="getGroupedCustomers(data, $event)">
-        {{data.name}}
+        :class="{ active: className == data.name }"
+        :key="index"
+        @click="getGroupedCustomers(data, $event)"
+      >
+        {{ data.name }}
       </small>
       <input type="text" v-model="keywords" />
       <router-link :to="{ name: 'CustomerCreate' }">
@@ -20,13 +23,18 @@
 
     <div v-if="isAddGroupInputShow" style="background: yellowgreen">
       <form @submit.prevent="sendGroupData">
-        <input v-model="group.groupname" placeholder="Type into group name">
+        <input v-model="group.groupname" placeholder="Type into group name" />
         <button type="submit">
           <i class="iconfont icon-smallfix icon-icon_tianjia"></i>
         </button>
       </form>
     </div>
-
+    <div class="pagination-container container">
+        <span>Total {{total}} results</span>
+        <span @click="gotoPrev()">Prev</span>
+        <span>Current on {{$route.query.page}} of {{last_page}}</span>
+        <span @click="gotoNext()">Next</span>
+    </div>
     <div class="customers_body">
       <table class="table table-hover">
         <thead>
@@ -63,20 +71,24 @@ export default {
       customersData: [],
       keywords: "",
       group: {
-        groupname: ""
+        groupname: "",
       },
       groupData: "",
-      className: ""
+      className: "",
+      // 加入前端分页功能,
+      per_page: 25,
+      page: 1,
     };
   },
   methods: {
     getCustomersData() {
-      this.axios.get(this.GLOBAL.baseUrl + "/customer")
-      .then(res => {
-        this.customersData = res.data;
-        this.className = "";
-      })
-      .catch(err => alert(err))
+      this.axios
+        .get(this.GLOBAL.baseUrl + "/customer")
+        .then((res) => {
+          this.customersData = res.data;
+          this.className = "";
+        })
+        .catch((err) => alert(err));
     },
     goTo(id) {
       this.$router.replace({ path: "/customer", params: { id: id } });
@@ -86,38 +98,51 @@ export default {
       if (!sear) return alert("please type something");
 
       // 数据中有空字符串, 导致过滤有困难
-      let data = this.customersData.filter(customer => {
+      let data = this.customersData.filter((customer) => {
         if (!customer.email) return;
       });
       if (data.length == 0) return alert("we dont have the data");
       return (this.customers = data);
     },
     showAddGroupInput() {
-      this.isAddGroupInputShow = !this.isAddGroupInputShow
+      this.isAddGroupInputShow = !this.isAddGroupInputShow;
     },
     sendGroupData() {
       // data() group.groupname group对象, 不能直接传输数据 groupname 给后台;
-      this.axios.post(this.GLOBAL.baseUrl+"/group", this.qs.stringify(this.group))
-      .then(res => {
-        alert(res.data.msg);
-        this.group.groupname = "";
-        this.getGroupData();
-      })
-      .catch(err => alert(err))
+      this.axios
+        .post(this.GLOBAL.baseUrl + "/group", this.qs.stringify(this.group))
+        .then((res) => {
+          alert(res.data.msg);
+          this.group.groupname = "";
+          this.getGroupData();
+        })
+        .catch((err) => alert(err));
     },
     getGroupData() {
-      let {axios, GLOBAL} = this;
-      axios.get(GLOBAL.baseUrl + "/group")
-      .then(res => this.groupData = res.data)
-      .catch(err => alert(err))
+      let { axios, GLOBAL } = this;
+      axios
+        .get(GLOBAL.baseUrl + "/group")
+        .then((res) => (this.groupData = res.data))
+        .catch((err) => alert(err));
     },
     getGroupedCustomers(data) {
-      this.axios.get(this.GLOBAL.baseUrl+"/group/"+data.id+"/customers")
-      .then(res => { 
-        this.customersData = res.data;
-        this.className = data.name;
-      })
-      .catch(err => alert(err))
+      this.axios
+        .get(this.GLOBAL.baseUrl + "/group/" + data.id + "/customers")
+        .then((res) => {
+          this.customersData = res.data;
+          this.className = data.name;
+        })
+        .catch((err) => alert(err));
+    },
+    gotoNext() {
+      if(this.$route.query.page == this.last_page) {
+        return;
+      }
+      this.$router.push({name: 'Customer', query: {page: Number(this.$route.query.page) + 1}});
+    },
+    gotoPrev() {
+      if(this.$route.query.page <=1 ) return;
+      this.$router.push({name: 'Customer', query: {page: Number(this.$route.query.page) - 1}});
     }
   },
   created() {
@@ -125,16 +150,28 @@ export default {
     this.getGroupData();
   },
   computed: {
-    // 计算属性的超强过滤功能
+    searchedBy() {
+      let search = this.keywords.toLowerCase();
+      let searchResult = this.customersData.filter((customer) => JSON.stringify(customer).toLowerCase().includes(search));
+      return searchResult;
+    },
+    total() {
+      return this.searchedBy.length;
+    },
     filteredBy() {
-      const { customersData, keywords } = this;
-      let search = keywords.toLowerCase();
-      return customersData.filter(customer => {
-        return JSON.stringify(customer)
-          .toLowerCase()
-          .includes(search);
-      });
+        let page = this.$route.query.page;
+        return  this.searchedBy.filter((customer, index) => {
+          return index < this.per_page * page && index >= this.per_page * (page -1)
+        });
+    },
+    last_page() {
+      return Math.ceil(this.total/this.per_page);
     }
+  },
+  watch: {
+     keywords(value) {
+       if(value) this.$route.query.page = 1;
+     }
   }
 };
 </script>
@@ -153,10 +190,14 @@ export default {
 .customer_add {
   color: #fff;
 }
-.active{
+.active {
   font-size: 14px;
   border-radius: 5px;
   padding: 5px 5px;
   background-color: blue;
+}
+.pagination-container {
+  display: flex;
+  justify-content: space-between;
 }
 </style>

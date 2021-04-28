@@ -1,7 +1,7 @@
 <template>
   <div class="customer_show container mt-3">
     <div class="customer_show_header">
-      <router-link to="/customer" class="m">Back</router-link>
+      <button @click="$router.back()">Back</button>
       <div>
         <small
           v-for="(data, index) in groupData"

@@ -2,7 +2,7 @@
     <div class="nav container nav-header">
       <router-link to="/home"><span class="iconfont icon-todo"></span></router-link>
       <router-link to="/faq"><span class="iconfont icon-FAQ"></span></router-link>
-      <router-link to="/customer"><span class="iconfont icon-Quotation
+      <router-link :to="{name: 'Customer', query: {page: 1}}"><span class="iconfont icon-Quotation
 "></span></router-link>
       <router-link to="/client"><span class="iconfont icon-client"></span></router-link>
       <router-link to="/invoice"><span class="iconfont icon-icon-menu-invoice"></span></router-link>
