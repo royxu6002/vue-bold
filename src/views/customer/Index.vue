@@ -13,7 +13,7 @@
       >
         {{ data.name }}
       </small>
-      <input type="text" v-model="keywords" />
+      <input type="text" v-model="keywords" @keyup="inputKeywords(keywords)">
       <router-link :to="{ name: 'CustomerCreate' }">
         <span class="btn btn-default customer_add">
           <i class="iconfont icon-add-account mr-2 icon-smallfix"></i>
@@ -36,7 +36,7 @@
         <span @click="gotoNext()">Next</span>
     </div>
     <div class="customers_body">
-      <table class="table table-hover">
+      <table class="table table-hover table-striped">
         <thead>
           <tr>
             <th scope="col">Number</th>
@@ -63,32 +63,30 @@
   </div>
 </template>
 <script>
+import { mapActions, mapGetters } from 'vuex';
+
 export default {
   name: "Customer",
   data() {
     return {
       isAddGroupInputShow: false,
       customersData: [],
-      keywords: "",
+      keywords: '',
       group: {
         groupname: "",
       },
       groupData: "",
       className: "",
       // 加入前端分页功能,
-      per_page: 25,
+      per_page: 15,
       page: 1,
     };
   },
   methods: {
+    ...mapActions('customers', ['inputKeywords']),
     getCustomersData() {
-      this.axios
-        .get(this.GLOBAL.baseUrl + "/customer")
-        .then((res) => {
-          this.customersData = res.data;
-          this.className = "";
-        })
-        .catch((err) => alert(err));
+      this.inputKeywords('');
+      this.keywords = '';
     },
     goTo(id) {
       this.$router.replace({ path: "/customer", params: { id: id } });
@@ -143,24 +141,21 @@ export default {
     gotoPrev() {
       if(this.$route.query.page <=1 ) return;
       this.$router.push({name: 'Customer', query: {page: Number(this.$route.query.page) - 1}});
-    }
+    },
   },
   created() {
-    this.getCustomersData();
     this.getGroupData();
+    this.$store.dispatch('customers/get');
   },
   computed: {
-    searchedBy() {
-      let search = this.keywords.toLowerCase();
-      let searchResult = this.customersData.filter((customer) => JSON.stringify(customer).toLowerCase().includes(search));
-      return searchResult;
-    },
+    ...mapGetters('customers', ['filteredCustomers']),
     total() {
-      return this.searchedBy.length;
+      if(this.filteredCustomers != 'null') return this.filteredCustomers.length;
+      return '';
     },
     filteredBy() {
         let page = this.$route.query.page;
-        return  this.searchedBy.filter((customer, index) => {
+        return  this.filteredCustomers.filter((customer, index) => {
           return index < this.per_page * page && index >= this.per_page * (page -1)
         });
     },

@@ -6,6 +6,13 @@ import App from "./App.vue";
 import router from "./router";
 import store from "./store";
 
+// import PrimeVue
+// import PrimeVue from 'primevue/config';
+// Vue.use(PrimeVue);
+// import DataTable from 'primevue/datatable';
+// import Column from 'primevue/column';
+// import ColumnGroup from 'primevue/columngroup';
+
 // 引入 bignumber.js 来更正运算;
 import bigNumber from "bignumber.js";
 Vue.prototype.BIGNUMBER = bigNumber;
