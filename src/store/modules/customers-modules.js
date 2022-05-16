@@ -1,5 +1,5 @@
 import axios from 'axios';
-// import baseUrl from '../../api/global_variables';
+// import baseUrl from '@/api/global_variables';
 
 const state = {
     customers: null,
@@ -26,8 +26,9 @@ const mutations = {
 
 const actions = {
     get({commit}) {
-        // 
-        axios.get('http://iot.test/api/v1/customer')
+        let baseUrl = '';
+        process.env.NODE_ENV === "development" ? baseUrl =  'http://iot.test/api/v1' : baseUrl = '/apis/api/v1';
+        axios.get( baseUrl +'/customer')
       .then((res) => {
         commit('SET_CUSTOMERS', res.data);
       })

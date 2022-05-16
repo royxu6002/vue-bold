@@ -150,8 +150,8 @@ export default {
   computed: {
     ...mapGetters('customers', ['filteredCustomers']),
     total() {
-      if(this.filteredCustomers != 'null') return this.filteredCustomers.length;
-      return '';
+      if(this.filteredCustomers) return this.filteredCustomers.length;
+      return '1';
     },
     filteredBy() {
         let page = this.$route.query.page;
